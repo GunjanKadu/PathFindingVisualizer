@@ -8,3 +8,6 @@
   width: 100vw;
   justify-content: center;
 }
+.board__node {
+  cursor: pointer;
+}
