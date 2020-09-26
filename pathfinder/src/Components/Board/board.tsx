@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { DEFAULT_COLUMNS, DEFAULT_ROWS, uuidv4 } from "../../Utility/constants";
-import Grid from "../../Utility/grid";
+
 import Node from "../Node/node";
+import Grid from "../../Utility/grid";
+import { DEFAULT_COLUMNS, DEFAULT_ROWS } from "../../Utility/constants";
+import { INodeProperties } from "../../Utility/interfaces";
+
 import "./board.css";
 
 function Board() {
-  const [grid, setGrid] = useState<Array<JSX.Element>>();
-  const [key] = useState<string>(uuidv4());
+  const [grid, setGrid] = useState<Array<Array<INodeProperties>>>();
 
   useEffect(() => {
     let grid = new Grid(DEFAULT_ROWS, DEFAULT_COLUMNS).grid;
@@ -20,9 +22,9 @@ function Board() {
           grid.length > 0 &&
           grid.map((item: any, i: number) => (
             <div className="rows" key={i}>
-              {item.map((node: string, j: number) => (
-                <span key={node} onClick={() => console.log(node)}>
-                  <Node />
+              {item.map((node: INodeProperties, j: number) => (
+                <span key={node.key} onClick={() => console.log(node)}>
+                  <Node weight={node.weight} />
                 </span>
               ))}
             </div>

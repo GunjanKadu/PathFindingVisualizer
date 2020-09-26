@@ -1,9 +1,9 @@
 import React from "react";
-import { uuidv4 } from "../../Utility/constants";
+import { INodeProperties, INodeProps } from "../../Utility/interfaces";
 import "./node.css";
 
-function node() {
-  return <div className="node">N</div>;
+function Node(props: INodeProps) {
+  return <div className="node">{props.weight}</div>;
 }
 
-export default node;
+export default Node;

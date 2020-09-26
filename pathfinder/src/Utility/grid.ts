@@ -1,5 +1,5 @@
 import { uuidv4 } from "./constants";
-import { IGrid, INodeProperties } from "./interface";
+import { IGrid, INodeProperties } from "./interfaces";
 
 export default class Grid implements IGrid {
   constructor(row: number, column: number) {
