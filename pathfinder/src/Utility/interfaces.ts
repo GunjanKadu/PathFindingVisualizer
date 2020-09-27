@@ -12,8 +12,12 @@ export interface INodeProperties {
   row: number;
   weight: number;
   key: string;
+  isStart: boolean;
+  isEnd: boolean;
 }
 
 export interface INodeProps {
   weight: number;
+  isStart: boolean;
+  isEnd: boolean;
 }

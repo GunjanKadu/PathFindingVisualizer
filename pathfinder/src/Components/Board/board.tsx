@@ -24,7 +24,11 @@ function Board() {
             <div className="rows" key={i}>
               {item.map((node: INodeProperties, j: number) => (
                 <span key={node.key} onClick={() => console.log(node)}>
-                  <Node weight={node.weight} />
+                  <Node
+                    weight={node.weight}
+                    isStart={node.isStart}
+                    isEnd={node.isEnd}
+                  />
                 </span>
               ))}
             </div>

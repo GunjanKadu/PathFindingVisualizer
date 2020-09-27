@@ -2,4 +2,13 @@
   height: 25px;
   width: 25px;
   border: 1px solid black;
+  cursor: pointer;
+}
+.node__defaultStart {
+  background-color: red;
+  color: red;
+}
+.node__defaultEnd {
+  background-color: green;
+  color: green;
 }

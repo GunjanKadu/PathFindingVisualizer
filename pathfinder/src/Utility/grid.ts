@@ -1,4 +1,4 @@
-import { uuidv4 } from "./constants";
+import { uuidv4, DEFAULT_START, DEFAULT_END } from "./constants";
 import { IGrid, INodeProperties } from "./interfaces";
 
 export default class Grid implements IGrid {
@@ -11,6 +11,8 @@ export default class Grid implements IGrid {
   addPropertiesToNode = (column: number, row: number): INodeProperties => {
     let weight = Math.floor(Math.random() * 9) + 1;
     return {
+      isStart: DEFAULT_START[0] === row && DEFAULT_START[1] === column,
+      isEnd: DEFAULT_END[0] === row && DEFAULT_END[1] === column,
       column,
       row,
       weight,

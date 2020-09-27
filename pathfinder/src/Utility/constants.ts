@@ -1,6 +1,8 @@
 import { constants } from "buffer";
 export const DEFAULT_COLUMNS = 50;
-export const DEFAULT_ROWS = 20;
+export const DEFAULT_ROWS = 19;
+export const DEFAULT_START = [9, 9];
+export const DEFAULT_END = [9, 39];
 
 export const uuidv4 = (): string => {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
