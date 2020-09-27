@@ -29,3 +29,9 @@ export interface INodeProps {
   onMouseUp: () => any;
   onMouseEnter: (row: number, col: number) => any;
 }
+export interface IState {
+  isMousePressed: boolean;
+  grid: IGrid;
+  defaultStart: Array<number>;
+  defaultEnd: Array<number>;
+}
