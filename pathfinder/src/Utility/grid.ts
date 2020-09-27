@@ -15,6 +15,7 @@ export default class Grid implements IGrid {
       isEnd: DEFAULT_END[0] === row && DEFAULT_END[1] === column,
       column,
       row,
+      isWall: false,
       weight,
       key: uuidv4(),
     };
@@ -25,9 +26,12 @@ export default class Grid implements IGrid {
     for (let c = 0; c < columns; c++) {
       result.push([]);
       for (let r = 0; r < rows; r++) {
-        result[c].push(this.addPropertiesToNode(c + 1, r + 1));
+        result[c].push(this.addPropertiesToNode(c, r));
       }
     }
     return result;
+  };
+  toggleWall = (row: number, col: number) => {
+    this.grid[col][row].isWall = !this.grid[col][row].isWall;
   };
 }

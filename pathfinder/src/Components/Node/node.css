@@ -3,6 +3,11 @@
   width: 25px;
   border: 1px solid black;
   cursor: pointer;
+  -webkit-user-select: none; /* Webkit */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE 10  */
+  -o-user-select: none;
+  user-select: none;
 }
 .node__defaultStart {
   background-color: red;
@@ -11,4 +16,8 @@
 .node__defaultEnd {
   background-color: green;
   color: green;
+}
+.node__isWall {
+  background-color: black;
+  color: black;
 }

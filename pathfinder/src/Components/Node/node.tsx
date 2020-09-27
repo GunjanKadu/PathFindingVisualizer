@@ -7,10 +7,20 @@ function Node(props: INodeProps) {
     let type;
     if (props.isStart) type = "node__defaultStart";
     if (props.isEnd) type = "node__defaultEnd";
+    if (props.isWall) type = "node__isWall";
     return `node ${type}`;
   };
 
-  return <div className={getNodeType(props)}>{props.weight}</div>;
+  return (
+    <div
+      className={getNodeType(props)}
+      onMouseDown={() => props.onMouseDown(props.row, props.column)}
+      onMouseUp={props.onMouseUp}
+      onMouseEnter={() => props.onMouseEnter(props.row, props.column)}
+    >
+      {props.weight}
+    </div>
+  );
 }
 
 export default Node;
