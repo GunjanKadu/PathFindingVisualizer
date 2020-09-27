@@ -20,6 +20,8 @@ export default class Board extends Component<{}, IState> {
       grid: new Grid(DEFAULT_ROWS, DEFAULT_COLUMNS),
       defaultStart: DEFAULT_START,
       defaultEnd: DEFAULT_END,
+      movingEnd: false,
+      movingStart: false,
     };
   }
 
@@ -28,28 +30,44 @@ export default class Board extends Component<{}, IState> {
     this.setState({ isMousePressed: true });
     if (row === defaultStart[0] && col === defaultStart[1]) {
       console.log("Starting Node Clicked");
+      this.setState({ movingStart: true });
     } else if (row === defaultEnd[0] && col === defaultEnd[1]) {
       console.log("Ending Node Clicked");
+      this.setState({ movingEnd: true });
     } else {
       grid?.toggleWall(row, col);
     }
   };
   handleMouseEnter = (row: number, col: number) => {
-    const { defaultStart, defaultEnd, grid, isMousePressed } = this.state;
+    const {
+      grid,
+      isMousePressed,
+      movingEnd,
+      movingStart,
+      defaultStart,
+      defaultEnd,
+    } = this.state;
 
     if (isMousePressed) {
-      if (row === defaultStart[0] && col === defaultStart[1]) {
-        console.log("Starting Node Entered");
-      } else if (row === defaultEnd[0] && col === defaultEnd[1]) {
-        console.log("Ending Node Entered");
-      } else {
-        grid?.toggleWall(row, col);
-      }
+      if (movingStart) {
+        this.setState({ defaultStart: [row, col] });
+        grid.toggleStart(row, col);
+        grid.toggleStart(defaultStart[0], defaultStart[1]);
+      } else if (movingEnd) {
+        this.setState({ defaultEnd: [row, col] });
+        grid.toggleEnd(row, col);
+        grid.toggleEnd(defaultEnd[0], defaultEnd[1]);
+      } else grid?.toggleWall(row, col);
+
       this.setState({ grid: this.state.grid });
     }
   };
   handleMouseUp = () => {
-    this.setState({ isMousePressed: false });
+    this.setState({
+      isMousePressed: false,
+      movingStart: false,
+      movingEnd: false,
+    });
   };
 
   render() {
@@ -62,25 +80,36 @@ export default class Board extends Component<{}, IState> {
             grid.grid.length > 0 &&
             grid.grid.map((item: any, i: number) => (
               <div className="rows" key={i}>
-                {item.map((node: INodeProperties, j: number) => (
-                  <span key={node.key}>
-                    <Node
-                      row={node.row}
-                      column={node.column}
-                      weight={node.weight}
-                      isStart={node.isStart}
-                      isEnd={node.isEnd}
-                      isWall={node.isWall}
-                      onMouseDown={(row: number, col: number) =>
-                        this.handleMouseDown(row, col)
-                      }
-                      onMouseUp={() => this.handleMouseUp()}
-                      onMouseEnter={(row: number, col: number) =>
-                        this.handleMouseEnter(row, col)
-                      }
-                    />
-                  </span>
-                ))}
+                {item.map((node: INodeProperties, j: number) => {
+                  const {
+                    row,
+                    column,
+                    weight,
+                    isEnd,
+                    isStart,
+                    isWall,
+                    key,
+                  } = node;
+                  return (
+                    <span key={key}>
+                      <Node
+                        row={row}
+                        column={column}
+                        weight={weight}
+                        isStart={isStart}
+                        isEnd={isEnd}
+                        isWall={isWall}
+                        onMouseDown={(row: number, col: number) =>
+                          this.handleMouseDown(row, col)
+                        }
+                        onMouseUp={() => this.handleMouseUp()}
+                        onMouseEnter={(row: number, col: number) =>
+                          this.handleMouseEnter(row, col)
+                        }
+                      />
+                    </span>
+                  );
+                })}
               </div>
             ))}
         </div>

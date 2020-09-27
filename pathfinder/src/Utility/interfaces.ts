@@ -5,6 +5,8 @@ export interface IGrid {
   ) => Array<Array<INodeProperties>>;
   addPropertiesToNode: (column: number, row: number) => INodeProperties;
   toggleWall: (row: number, col: number) => void;
+  toggleStart: (row: number, col: number) => void;
+  toggleEnd: (row: number, col: number) => void;
   grid: Array<Array<INodeProperties>>;
 }
 
@@ -34,4 +36,6 @@ export interface IState {
   grid: IGrid;
   defaultStart: Array<number>;
   defaultEnd: Array<number>;
+  movingStart: boolean;
+  movingEnd: boolean;
 }

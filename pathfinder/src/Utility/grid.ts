@@ -34,4 +34,10 @@ export default class Grid implements IGrid {
   toggleWall = (row: number, col: number) => {
     this.grid[col][row].isWall = !this.grid[col][row].isWall;
   };
+  toggleStart = (row: number, col: number) => {
+    this.grid[col][row].isStart = !this.grid[col][row].isStart;
+  };
+  toggleEnd = (row: number, col: number) => {
+    this.grid[col][row].isEnd = !this.grid[col][row].isEnd;
+  };
 }
