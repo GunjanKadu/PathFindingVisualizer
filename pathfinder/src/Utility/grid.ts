@@ -1,3 +1,4 @@
+import Dijsktra from "./Algorithms/Dijkstra";
 import { Graph } from "./Algorithms/Graph";
 import { uuidv4, DEFAULT_START, DEFAULT_END } from "./constants";
 import { IGraph, IGrid, INodeProperties } from "./interfaces";
@@ -33,7 +34,8 @@ export default class Grid implements IGrid {
       }
     }
     this.graph.addEdgesToVertex();
-
+    let x = new Dijsktra(this.graph.node, this.graph.graph);
+    x.Dijkstra();
     return result;
   };
   toggleWall = (row: number, col: number) => {

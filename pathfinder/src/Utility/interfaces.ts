@@ -50,3 +50,15 @@ export interface IGraph {
   addEdgesToVertex: () => void;
   findAllNeighbours: (currenVertex: INodeProperties) => void;
 }
+export interface IPriorityQueue {
+  queue: Array<{ node: INodeProperties; weight: number }>;
+  enQueue: (node: INodeProperties, weight: number) => void;
+  deQueue: () => { node: INodeProperties; weight: number } | undefined;
+  sort: () => void;
+}
+export interface IDijkstra {
+  node: { [key: string]: INodeProperties };
+  graph: { [key: string]: Array<string> };
+  Dijkstra: () => any;
+  setInitialState: (distances: {}, previous: {}, queue: IPriorityQueue) => any;
+}

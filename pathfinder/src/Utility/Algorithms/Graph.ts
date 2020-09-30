@@ -22,7 +22,6 @@ export class Graph implements IGraph {
       let neighbours = this.findAllNeighbours(currentVertex);
       this.graph[vertex] = neighbours;
     }
-    console.log(this.graph);
   }
   findAllNeighbours(currentVertex: INodeProperties) {
     let neighbour: Array<string> = [];
