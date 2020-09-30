@@ -8,6 +8,7 @@ export interface IGrid {
   toggleStart: (row: number, col: number) => void;
   toggleEnd: (row: number, col: number) => void;
   grid: Array<Array<INodeProperties>>;
+  graph: any;
 }
 
 export interface INodeProperties {
@@ -18,6 +19,7 @@ export interface INodeProperties {
   isStart: boolean;
   isEnd: boolean;
   isWall: boolean;
+  identifier: string;
 }
 
 export interface INodeProps {
@@ -30,6 +32,7 @@ export interface INodeProps {
   onMouseDown: (row: number, col: number) => any;
   onMouseUp: () => any;
   onMouseEnter: (row: number, col: number) => any;
+  // onClick: () => void;
 }
 export interface IState {
   isMousePressed: boolean;
@@ -38,4 +41,12 @@ export interface IState {
   defaultEnd: Array<number>;
   movingStart: boolean;
   movingEnd: boolean;
+}
+export interface IGraph {
+  node: { [key: string]: INodeProperties };
+  graph: { [key: string]: Array<string> };
+  addNodes: (node: INodeProperties) => void;
+  addVertexToGraph: (node: INodeProperties) => void;
+  addEdgesToVertex: () => void;
+  findAllNeighbours: (currenVertex: INodeProperties) => void;
 }
