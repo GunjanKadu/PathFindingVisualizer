@@ -1,38 +1,67 @@
 import { IDijkstra, INodeProperties, IPriorityQueue } from "../interfaces";
 
 export default class Dijsktra implements IDijkstra {
-  node: { [key: string]: INodeProperties };
+  nodes: { [key: string]: INodeProperties };
   graph: { [key: string]: Array<string> };
 
   constructor(
-    node: { [key: string]: INodeProperties },
+    nodes: { [key: string]: INodeProperties },
     graph: { [key: string]: Array<string> }
   ) {
-    this.node = node;
+    this.nodes = nodes;
     this.graph = graph;
   }
-  Dijkstra() {
+  Dijkstra(start: string, end: string) {
+    // console.log(start, end);
     const distances: { [key: string]: number } = {};
     const previous: { [key: string]: string | null } = {};
     const queue = new PriorityQueue();
+    const path = [];
     this.setInitialState(distances, previous, queue);
-    console.log("Distances", distances);
-    console.log("Previous", previous);
-    console.log("Queue", queue);
+    while (queue.queue.length > 0) {
+      let smallestWeightedVertex:
+        | { node: INodeProperties; weight: number }
+        | undefined = queue.deQueue();
+
+      let key: any = `${smallestWeightedVertex?.node.column}${smallestWeightedVertex?.node.row}`;
+      if (end === key) {
+        console.log("previous", previous);
+        while (previous[key]) {
+          path.push(key);
+          key = previous[key];
+        }
+        path.push(start);
+
+        break;
+      }
+      for (let vertex in this.graph[key]) {
+        //   console.log(this.graph[key][vertex]);
+        let neighbour: INodeProperties = this.nodes[this.graph[key][vertex]];
+        let distanceToNextNode: number = distances[key] + neighbour.weight;
+        if (
+          distances[`${neighbour.column}${neighbour.row}`] > distanceToNextNode
+        ) {
+          distances[`${neighbour.column}${neighbour.row}`] =
+            distances[key] + neighbour.weight;
+          previous[`${neighbour.column}${neighbour.row}`] = key;
+          queue.enQueue(neighbour, neighbour.weight);
+        }
+      }
+    }
+    console.log(path.reverse());
   }
   setInitialState(
     distances: { [key: string]: number },
     previous: { [key: string]: string | null },
     queue: IPriorityQueue
   ) {
-    console.log(this.node);
-    for (let vertex in this.node) {
-      if (this.node[vertex].isStart) {
+    for (let vertex in this.nodes) {
+      if (this.nodes[vertex].isStart) {
         distances[vertex] = 0;
-        queue.enQueue(this.node[vertex], 0);
+        queue.enQueue(this.nodes[vertex], 0);
       } else {
         distances[vertex] = Infinity;
-        queue.enQueue(this.node[vertex], Infinity);
+        queue.enQueue(this.nodes[vertex], Infinity);
       }
       previous[vertex] = null;
     }
