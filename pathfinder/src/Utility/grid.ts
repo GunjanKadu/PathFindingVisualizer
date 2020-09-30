@@ -34,13 +34,16 @@ export default class Grid implements IGrid {
       }
     }
     this.graph.addEdgesToVertex();
-    let x = new Dijsktra(this.graph.node, this.graph.graph);
-    x.Dijkstra(
-      `${DEFAULT_START[1]}${DEFAULT_START[0]}`,
-      `${DEFAULT_END[1]}${DEFAULT_END[0]}`
-    );
+    // let x = new Dijsktra(this.graph.node, this.graph.graph);
+    // x.Dijkstra(
+    //   `${DEFAULT_START[1]}${DEFAULT_START[0]}`,
+    //   `${DEFAULT_END[1]}${DEFAULT_END[0]}`
+    // );
     return result;
   };
+  getCurrentGeneratedGraph() {
+    return this.graph;
+  }
   toggleWall = (row: number, col: number) => {
     this.grid[col][row].isWall = !this.grid[col][row].isWall;
   };

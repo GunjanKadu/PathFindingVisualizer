@@ -20,6 +20,7 @@ function Node(props: INodeProps) {
         onMouseEnter={() => props.onMouseEnter(props.row, props.column)}
       >
         {`${props.column}${props.row}`}
+        {/* {props.weight} */}
       </div>
     </div>
   );

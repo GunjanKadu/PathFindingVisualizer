@@ -4,10 +4,7 @@ export default class Dijsktra implements IDijkstra {
   nodes: { [key: string]: INodeProperties };
   graph: { [key: string]: Array<string> };
 
-  constructor(
-    nodes: { [key: string]: INodeProperties },
-    graph: { [key: string]: Array<string> }
-  ) {
+  constructor(nodes: any, graph: any) {
     this.nodes = nodes;
     this.graph = graph;
   }
@@ -25,7 +22,6 @@ export default class Dijsktra implements IDijkstra {
 
       let key: any = `${smallestWeightedVertex?.node.column}${smallestWeightedVertex?.node.row}`;
       if (end === key) {
-        console.log("previous", previous);
         while (previous[key]) {
           path.push(key);
           key = previous[key];

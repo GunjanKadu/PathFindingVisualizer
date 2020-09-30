@@ -7,6 +7,7 @@ export interface IGrid {
   toggleWall: (row: number, col: number) => void;
   toggleStart: (row: number, col: number) => void;
   toggleEnd: (row: number, col: number) => void;
+  getCurrentGeneratedGraph: () => IGraph;
   grid: Array<Array<INodeProperties>>;
   graph: any;
 }
@@ -41,6 +42,8 @@ export interface IState {
   defaultEnd: Array<number>;
   movingStart: boolean;
   movingEnd: boolean;
+  graph: IGraph | undefined;
+  isVisualizedClicked: boolean;
 }
 export interface IGraph {
   node: { [key: string]: INodeProperties };
@@ -61,4 +64,9 @@ export interface IDijkstra {
   graph: { [key: string]: Array<string> };
   Dijkstra: (start: string, end: string) => any;
   setInitialState: (distances: {}, previous: {}, queue: IPriorityQueue) => any;
+}
+export interface IHeader {
+  visualize: boolean;
+  changeAlgo: (value: string) => void;
+  startVisualizing: () => void;
 }

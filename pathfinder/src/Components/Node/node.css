@@ -1,9 +1,10 @@
 .node {
-  height: 25px;
-  width: 25px;
+  height: 35px;
+  width: 35px;
   font-size: 10px;
   border: 1px solid black;
   cursor: pointer;
+
   -webkit-user-select: none; /* Webkit */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE 10  */
