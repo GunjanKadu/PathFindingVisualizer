@@ -1,0 +1,52 @@
+.navbar-dark {
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.my-dropdown-item {
+  color: black;
+  background-color: white;
+}
+
+.my-dropdown-item:hover {
+  color: white;
+  background-color: black;
+}
+
+.non-visualize-button {
+  color: rgb(154, 156, 159);
+  background-color: inherit;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Arial;
+}
+
+.non-visualize-button:hover {
+  color: white;
+  background-color: inherit;
+}
+.non-visualize-button:disabled {
+  color: red;
+  background-color: inherit;
+}
+.visualize-it-button {
+  border: none;
+  color: white;
+  background-color: green;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.visualize-it-button:disabled {
+  background-color: red;
+}
+.visualize-it-button:disabled:hover {
+  background-color: red;
+}
+.visualize-it-button:hover {
+  background-color: green;
+}
