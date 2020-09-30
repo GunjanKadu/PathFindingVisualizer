@@ -57,8 +57,8 @@ export interface IPriorityQueue {
   sort: () => void;
 }
 export interface IDijkstra {
-  node: { [key: string]: INodeProperties };
+  nodes: { [key: string]: INodeProperties };
   graph: { [key: string]: Array<string> };
-  Dijkstra: () => any;
+  Dijkstra: (start: string, end: string) => any;
   setInitialState: (distances: {}, previous: {}, queue: IPriorityQueue) => any;
 }
