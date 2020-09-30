@@ -1,4 +1,3 @@
-import { constants } from "buffer";
 export const DEFAULT_COLUMNS = 50;
 export const DEFAULT_ROWS = 19;
 export const DEFAULT_START = [8, 9];

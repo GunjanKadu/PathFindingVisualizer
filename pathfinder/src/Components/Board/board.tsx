@@ -9,7 +9,7 @@ import {
   DEFAULT_START,
 } from "../../Utility/constants";
 import { INodeProperties, IState } from "../../Utility/interfaces";
-
+import Header from "../TopBar/topbar";
 import "./board.css";
 
 export default class Board extends Component<{}, IState> {
@@ -18,6 +18,7 @@ export default class Board extends Component<{}, IState> {
     this.state = {
       isMousePressed: false,
       grid: new Grid(DEFAULT_ROWS, DEFAULT_COLUMNS),
+
       defaultStart: DEFAULT_START,
       defaultEnd: DEFAULT_END,
       movingEnd: false,
@@ -73,47 +74,50 @@ export default class Board extends Component<{}, IState> {
   render() {
     const { grid } = this.state;
     return (
-      <div className="board">
-        <h2>Board</h2>
-        <div className="board___nodeContainer">
-          {grid &&
-            grid.grid.length > 0 &&
-            grid.grid.map((item: any, i: number) => (
-              <div className="rows" key={i}>
-                {item.map((node: INodeProperties, j: number) => {
-                  const {
-                    row,
-                    column,
-                    weight,
-                    isEnd,
-                    isStart,
-                    isWall,
-                    key,
-                  } = node;
-                  return (
-                    <span key={key}>
-                      <Node
-                        row={row}
-                        column={column}
-                        weight={weight}
-                        isStart={isStart}
-                        isEnd={isEnd}
-                        isWall={isWall}
-                        onMouseDown={(row: number, col: number) =>
-                          this.handleMouseDown(row, col)
-                        }
-                        onMouseUp={() => this.handleMouseUp()}
-                        onMouseEnter={(row: number, col: number) =>
-                          this.handleMouseEnter(row, col)
-                        }
-                      />
-                    </span>
-                  );
-                })}
-              </div>
-            ))}
+      <React.Fragment>
+        <Header />
+        <div className="board">
+          <h2>Board</h2>
+          <div className="board___nodeContainer">
+            {grid &&
+              grid.grid.length > 0 &&
+              grid.grid.map((item: any, i: number) => (
+                <div className="rows" key={i}>
+                  {item.map((node: INodeProperties, j: number) => {
+                    const {
+                      row,
+                      column,
+                      weight,
+                      isEnd,
+                      isStart,
+                      isWall,
+                      key,
+                    } = node;
+                    return (
+                      <span key={key} onClick={() => console.log({ ...node })}>
+                        <Node
+                          row={row}
+                          column={column}
+                          weight={weight}
+                          isStart={isStart}
+                          isEnd={isEnd}
+                          isWall={isWall}
+                          onMouseDown={(row: number, col: number) =>
+                            this.handleMouseDown(row, col)
+                          }
+                          onMouseUp={() => this.handleMouseUp()}
+                          onMouseEnter={(row: number, col: number) =>
+                            this.handleMouseEnter(row, col)
+                          }
+                        />
+                      </span>
+                    );
+                  })}
+                </div>
+              ))}
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

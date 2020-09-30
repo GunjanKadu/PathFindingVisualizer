@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { INodeProps } from "../../Utility/interfaces";
 import "./node.css";
 
@@ -19,7 +19,7 @@ function Node(props: INodeProps) {
         onMouseUp={() => props.onMouseUp()}
         onMouseEnter={() => props.onMouseEnter(props.row, props.column)}
       >
-        {props.weight}
+        {`${props.column}${props.row}`}
       </div>
     </div>
   );
