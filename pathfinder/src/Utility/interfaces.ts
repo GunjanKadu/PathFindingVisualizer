@@ -49,6 +49,13 @@ export interface IDijkstra {
   ) => Array<INodeProperties> | undefined;
   sortNodesByDistance: (unvisitedNodes: Array<INodeProperties>) => void;
 }
+export interface IBFS {
+  traverse: (
+    grid: Array<Array<INodeProperties>>,
+    startNode: INodeProperties,
+    endNode: INodeProperties
+  ) => Array<INodeProperties> | undefined;
+}
 export interface IHeader {
   visualize: boolean;
   changeAlgo: (value: string) => void;
