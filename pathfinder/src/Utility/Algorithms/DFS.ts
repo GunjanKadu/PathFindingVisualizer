@@ -37,3 +37,4 @@ export default class DFS extends Finder implements IDFS {
     return visitedNodesInOrder;
   }
 }
+export type TDFS = typeof DFS;

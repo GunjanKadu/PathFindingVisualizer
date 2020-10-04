@@ -45,3 +45,4 @@ export default class BellmanFord extends Finder implements IBellMan {
     return visitedNodesInOrder;
   }
 }
+export type TBellmanFord = typeof BellmanFord;

@@ -37,3 +37,4 @@ export default class BFS extends Finder implements IBFS {
     return visitedNodesInOrder;
   }
 }
+export type TBFS = typeof BFS;

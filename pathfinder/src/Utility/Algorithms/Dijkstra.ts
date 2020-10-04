@@ -51,3 +51,4 @@ or until the destination node is found.`;
     );
   }
 }
+export type TDijsktra = typeof Dijkstra;
