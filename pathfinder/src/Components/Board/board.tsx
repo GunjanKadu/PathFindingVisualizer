@@ -26,6 +26,8 @@ export default class Board extends Component<{}, IState> {
       movingEnd: false,
       movingStart: false,
       graph: undefined,
+      currentAlgorithm: undefined,
+      shortestPathForCurrentAlgorithm: undefined,
       isVisualizedClicked: false,
     };
   }
@@ -81,17 +83,37 @@ export default class Board extends Component<{}, IState> {
     this.setState({ graph: this.state.grid.getCurrentGeneratedGraph() }, () => {
       switch (value) {
         case ALGORITHM.DIJKSTRA:
-          let x = new Dijsktra(this.state.graph?.node, this.state.graph?.graph);
-          x.Dijkstra(
-            `${DEFAULT_START[1]}${DEFAULT_START[0]}`,
-            `${DEFAULT_END[1]}${DEFAULT_END[0]}`
+          this.setState(
+            {
+              currentAlgorithm: new Dijsktra(
+                this.state.graph?.node,
+                this.state.graph?.graph
+              ),
+            },
+            () => {
+              this.setState({
+                shortestPathForCurrentAlgorithm: this.state.currentAlgorithm?.Dijkstra(
+                  `${DEFAULT_START[1]}${DEFAULT_START[0]}`,
+                  `${DEFAULT_END[1]}${DEFAULT_END[0]}`
+                ),
+              });
+            }
           );
       }
-      console.log(this.state);
     });
   };
   startVisualizer = () => {
+    console.log("StartVisualizer");
     this.setState({ isVisualizedClicked: true });
+    // let unvisitedNodes:
+    //   | Array<string>
+    //   | undefined = this.state.currentAlgorithm?.getAllVisitedNodes();
+    this.state.shortestPathForCurrentAlgorithm?.forEach((identifier) => {
+      let element: HTMLElement | null = document.getElementById(
+        `node-${identifier}`
+      );
+      if (element) element.className = "node node-visited";
+    });
   };
 
   render() {
@@ -119,6 +141,7 @@ export default class Board extends Component<{}, IState> {
                       isStart,
                       isWall,
                       key,
+                      identifier,
                     } = node;
                     return (
                       <span
@@ -134,6 +157,7 @@ export default class Board extends Component<{}, IState> {
                           isStart={isStart}
                           isEnd={isEnd}
                           isWall={isWall}
+                          identifier={identifier}
                           onMouseDown={(row: number, col: number) =>
                             this.handleMouseDown(row, col)
                           }
