@@ -1,15 +1,22 @@
-import { IGrid } from "./interfaces";
+import { IGrid, INodeProperties } from "./interfaces";
 
 /*
 Grid class for storing the graph and the nodes therein.
 */
 export default class Grid implements IGrid {
-  constructor(weighted, start, end) {
+  grid: Array<Array<INodeProperties>>;
+  constructor(weighted: boolean, start: Array<number>, end: Array<number>) {
     this.grid = this.initializeGrid(weighted, start, end);
   }
 
-  initializeNode(row, col, weighted, start, end) {
-    let weight = "0";
+  initializeNode(
+    row: number,
+    col: number,
+    weighted: boolean,
+    start: Array<number>,
+    end: Array<number>
+  ) {
+    let weight = 0;
     if (weighted) {
       weight = Math.floor(Math.random() * 9) + 1;
     }
@@ -26,7 +33,7 @@ export default class Grid implements IGrid {
     };
   }
 
-  initializeGrid(weighted, start, end) {
+  initializeGrid(weighted: boolean, start: Array<number>, end: Array<number>) {
     const grid = [];
     for (let row = 0; row < 19; row++) {
       const newRow = [];
@@ -38,13 +45,13 @@ export default class Grid implements IGrid {
     return grid;
   }
 
-  toggleStart(row, col) {
+  toggleStart(row: number, col: number) {
     this.grid[row][col].isStart = !this.grid[row][col].isStart;
   }
-  toggleEnd(row, col) {
+  toggleEnd(row: number, col: number) {
     this.grid[row][col].isEnd = !this.grid[row][col].isEnd;
   }
-  toggleWall(row, col) {
+  toggleWall(row: number, col: number) {
     this.grid[row][col].isWall = !this.grid[row][col].isWall;
   }
 }

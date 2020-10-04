@@ -1,15 +1,30 @@
 export interface IGrid {
-  generateBoard: (
-    rows: number,
-    columns: number
-  ) => Array<Array<INodeProperties>>;
-  addPropertiesToNode: (column: number, row: number) => INodeProperties;
+  grid: Array<Array<INodeProperties>>;
+  initializeNode: (
+    row: number,
+    col: number,
+    weighted: boolean,
+    start: Array<number>,
+    end: Array<number>
+  ) => INodeProperties;
   toggleWall: (row: number, col: number) => void;
   toggleStart: (row: number, col: number) => void;
   toggleEnd: (row: number, col: number) => void;
 }
 
 export interface INodeProperties {
+  col: number;
+  row: number;
+  isEnd: boolean;
+  isStart: boolean;
+  isVisited: boolean;
+  isWall: boolean;
+  distance: number;
+  previous: any;
+  weight: number;
+}
+
+export interface INodeProps {
   column: number;
   row: number;
   weight: number;
@@ -18,20 +33,6 @@ export interface INodeProperties {
   isEnd: boolean;
   isWall: boolean;
   identifier: string;
-}
-
-export interface INodeProps {
-  weight: number;
-  isStart: boolean;
-  isEnd: boolean;
-  isWall: boolean;
-  row: number;
-  column: number;
-  identifier: string;
-  onMouseDown: (row: number, col: number) => any;
-  onMouseUp: () => any;
-  onMouseEnter: (row: number, col: number) => any;
-  // onClick: () => void;
 }
 export interface IState {
   algo: IDijkstra;
