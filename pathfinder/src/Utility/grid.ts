@@ -15,7 +15,7 @@ export default class Grid implements IGrid {
     weighted: boolean,
     start: Array<number>,
     end: Array<number>
-  ) {
+  ): INodeProperties {
     let weight = 0;
     if (weighted) {
       weight = Math.floor(Math.random() * 9) + 1;
@@ -33,8 +33,12 @@ export default class Grid implements IGrid {
     };
   }
 
-  initializeGrid(weighted: boolean, start: Array<number>, end: Array<number>) {
-    const grid = [];
+  initializeGrid(
+    weighted: boolean,
+    start: Array<number>,
+    end: Array<number>
+  ): Array<Array<INodeProperties>> {
+    const grid: Array<Array<INodeProperties>> = [];
     for (let row = 0; row < 19; row++) {
       const newRow = [];
       for (let col = 0; col < 49; col++) {
@@ -45,13 +49,13 @@ export default class Grid implements IGrid {
     return grid;
   }
 
-  toggleStart(row: number, col: number) {
+  toggleStart(row: number, col: number): void {
     this.grid[row][col].isStart = !this.grid[row][col].isStart;
   }
-  toggleEnd(row: number, col: number) {
+  toggleEnd(row: number, col: number): void {
     this.grid[row][col].isEnd = !this.grid[row][col].isEnd;
   }
-  toggleWall(row: number, col: number) {
+  toggleWall(row: number, col: number): void {
     this.grid[row][col].isWall = !this.grid[row][col].isWall;
   }
 }

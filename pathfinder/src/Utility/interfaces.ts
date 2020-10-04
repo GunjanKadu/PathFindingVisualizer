@@ -27,6 +27,33 @@ export interface IFinder {
   ): Array<INodeProperties>;
   getAllNodes: (grid: Array<Array<INodeProperties>>) => Array<INodeProperties>;
 }
+export interface IGraph {
+  node: { [key: string]: INodeProperties };
+  graph: { [key: string]: Array<string> };
+  addNodes: (node: INodeProperties) => void;
+  addVertexToGraph: (node: INodeProperties) => void;
+  addEdgesToVertex: () => void;
+  findAllNeighbours: (currenVertex: INodeProperties) => void;
+}
+export interface IPriorityQueue {
+  queue: Array<{ node: INodeProperties; weight: number }>;
+  enQueue: (node: INodeProperties, weight: number) => void;
+  deQueue: () => { node: INodeProperties; weight: number } | undefined;
+  sort: () => void;
+}
+export interface IDijkstra {
+  traverse: (
+    grid: Array<Array<INodeProperties>>,
+    startNode: INodeProperties,
+    endNode: INodeProperties
+  ) => Array<INodeProperties> | undefined;
+  sortNodesByDistance: (unvisitedNodes: Array<INodeProperties>) => void;
+}
+export interface IHeader {
+  visualize: boolean;
+  changeAlgo: (value: string) => void;
+  startVisualizing: () => void;
+}
 export interface INodeProperties {
   col: number;
   row: number;
@@ -61,32 +88,4 @@ export interface IState {
   end: Array<number>;
   movingStart: boolean;
   movingEnd: boolean;
-}
-export interface IGraph {
-  node: { [key: string]: INodeProperties };
-  graph: { [key: string]: Array<string> };
-  addNodes: (node: INodeProperties) => void;
-  addVertexToGraph: (node: INodeProperties) => void;
-  addEdgesToVertex: () => void;
-  findAllNeighbours: (currenVertex: INodeProperties) => void;
-}
-export interface IPriorityQueue {
-  queue: Array<{ node: INodeProperties; weight: number }>;
-  enQueue: (node: INodeProperties, weight: number) => void;
-  deQueue: () => { node: INodeProperties; weight: number } | undefined;
-  sort: () => void;
-}
-export interface IDijkstra {
-  nodes: { [key: string]: INodeProperties };
-  graph: { [key: string]: Array<string> };
-  visitedNodes: Array<string>;
-  shortestPath: Array<string>;
-  Dijkstra: (start: string, end: string) => Array<string>;
-  setInitialState: (distances: {}, previous: {}, queue: IPriorityQueue) => any;
-  getAllVisitedNodes: () => Array<string>;
-}
-export interface IHeader {
-  visualize: boolean;
-  changeAlgo: (value: string) => void;
-  startVisualizing: () => void;
 }

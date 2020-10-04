@@ -1,92 +1,53 @@
-import { IDijkstra, INodeProperties, IPriorityQueue } from "../interfaces";
+import { IDijkstra, INodeProperties } from "../interfaces";
+/*
+Implementation of Dijkstra's algorithm in JavaScript.
+*/
+import Pathfinder from "./Finder";
 
-export default class Dijsktra implements IDijkstra {
-  nodes: { [key: string]: INodeProperties };
-  graph: { [key: string]: Array<string> };
-  visitedNodes: Array<string> = [];
-  shortestPath: Array<string> = [];
-  constructor(nodes: any, graph: any) {
-    this.nodes = nodes;
-    this.graph = graph;
-  }
-  Dijkstra(start: string, end: string) {
-    // console.log(start, end);
-    const distances: { [key: string]: number } = {};
-    const previous: { [key: string]: string | null } = {};
-    const queue = new PriorityQueue();
+export default class Dijkstra extends Pathfinder implements IDijkstra {
+  static weighted = true;
+  static text = `Dijkstra's shortest path algorithm works on weighted graphs and
+guarantees the shortest path. This algorithm works similarly to breadth-first
+search in that it begins at the start node and then works it's way outward in
+all directions. As it works outwards it checks the edges (u,v,w) to see if
+u.distance + w is less than v.distance. If so it updates v.distance to hold
+u.distance + w. It continues this process until no more nodes can be visited,
+or until the destination node is found.`;
 
-    this.setInitialState(distances, previous, queue);
-    while (queue.queue.length > 0) {
-      let smallestWeightedVertex:
-        | { node: INodeProperties; weight: number }
-        | undefined = queue.deQueue();
+  traverse(
+    grid: Array<Array<INodeProperties>>,
+    startNode: INodeProperties,
+    endNode: INodeProperties
+  ): Array<INodeProperties> | undefined {
+    const visitedNodesInOrder = [];
+    startNode.distance = 0;
+    startNode.weight = 0;
+    const unvisited: Array<INodeProperties> = this.getAllNodes(grid);
 
-      let key: any = `${smallestWeightedVertex?.node.column}${smallestWeightedVertex?.node.row}`;
-      if (end === key) {
-        while (previous[key]) {
-          this.shortestPath.push(key);
-          key = previous[key];
-        }
-        this.shortestPath.push(start);
-        break;
-      }
-      for (let vertex in this.graph[key]) {
-        //   console.log(this.graph[key][vertex]);
-        let neighbour: INodeProperties = this.nodes[this.graph[key][vertex]];
-        this.visitedNodes.push(neighbour.identifier);
-        let distanceToNextNode: number = distances[key] + neighbour.weight;
-        if (
-          distances[`${neighbour.column}${neighbour.row}`] > distanceToNextNode
-        ) {
-          distances[`${neighbour.column}${neighbour.row}`] =
-            distances[key] + neighbour.weight;
-          previous[`${neighbour.column}${neighbour.row}`] = key;
-          queue.enQueue(neighbour, neighbour.weight);
+    while (unvisited.length !== 0) {
+      this.sortNodesByDistance(unvisited);
+      const closestNode: any = unvisited.shift();
+      // If the closest node is at a distance of infinity,
+      // we must be trapped and should therefore stop.
+      if (closestNode?.distance === Infinity) return visitedNodesInOrder;
+      closestNode.isVisited = true;
+      visitedNodesInOrder.push(closestNode);
+      if (closestNode === endNode) return visitedNodesInOrder;
+      let neighbors = this.getUnvisitedNeighbors(closestNode, grid);
+      for (const neighbor of neighbors) {
+        let newDistance = closestNode.distance + neighbor.weight;
+        if (newDistance < neighbor.distance) {
+          neighbor.distance = newDistance;
+          neighbor.previous = closestNode;
         }
       }
     }
-    console.log(this.shortestPath);
-    return this.shortestPath.reverse()
   }
-  setInitialState(
-    distances: { [key: string]: number },
-    previous: { [key: string]: string | null },
-    queue: IPriorityQueue
-  ) {
-    for (let vertex in this.nodes) {
-      if (this.nodes[vertex].isStart) {
-        distances[vertex] = 0;
-        queue.enQueue(this.nodes[vertex], 0);
-      } else {
-        distances[vertex] = Infinity;
-        queue.enQueue(this.nodes[vertex], Infinity);
-      }
-      previous[vertex] = null;
-    }
-  }
-  getAllVisitedNodes() {
-    return this.visitedNodes;
-  }
-}
 
-class PriorityQueue implements IPriorityQueue {
-  queue: Array<{ node: INodeProperties; weight: number }> = [];
-  constructor() {
-    this.queue = [];
-  }
-  enQueue(node: INodeProperties, weight: number) {
-    this.queue.push({ node, weight });
-    this.sort();
-  }
-  deQueue() {
-    return this.queue.shift();
-  }
-  sort() {
-    this.queue.sort(
-      (
-        a: { node: INodeProperties; weight: number },
-        b: { node: INodeProperties; weight: number }
-      ) => a.weight - b.weight
+  sortNodesByDistance(unvisitedNodes: Array<INodeProperties>): void {
+    unvisitedNodes.sort(
+      (nodeA: INodeProperties, nodeB: INodeProperties) =>
+        nodeA.distance - nodeB.distance
     );
   }
 }
