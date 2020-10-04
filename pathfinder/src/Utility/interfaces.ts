@@ -1,3 +1,8 @@
+import { TBellmanFord } from "./Algorithms/BellmanFord";
+import { TBFS } from "./Algorithms/BFS";
+import { TDFS } from "./Algorithms/DFS";
+import { TDijsktra } from "./Algorithms/Dijkstra";
+
 export interface IGrid {
   grid: Array<Array<INodeProperties>>;
   initializeNode: (
@@ -75,6 +80,19 @@ export interface IHeader {
   changeAlgo: (value: string) => void;
   startVisualizing: () => void;
 }
+export interface IAnimator {
+  visitedSpeed: number;
+  shortestSpeed: number;
+  animate: (
+    visitedNodesInOrder: Array<INodeProperties>,
+    nodesInShortestPathOrder: Array<INodeProperties>
+  ) => void;
+  animateShortestPath: (
+    nodesInShortestPathOrder: Array<INodeProperties>
+  ) => void;
+  updateSpeed: (visitedSpeed: number, shortestSpeed: number) => void;
+}
+
 export interface INodeProperties {
   col: number;
   row: number;
@@ -97,16 +115,17 @@ export interface INodeProps {
   isWall: boolean;
   identifier: string;
 }
-export interface IState {
-  algo: IDijkstra;
-  algoText: String;
-  speed: String;
-  grid: IGrid;
-  mouseIsPressed: false;
-  animator: IAnimator;
-  visualized: false;
-  start: Array<number>;
-  end: Array<number>;
-  movingStart: boolean;
-  movingEnd: boolean;
+export interface IVisualizerState {
+  algo?: algo;
+  algoText?: String;
+  speed?: String;
+  grid?: IGrid;
+  mouseIsPressed?: boolean;
+  animator?: IAnimator;
+  visualized?: boolean;
+  start?: Array<number>;
+  end?: Array<number>;
+  movingStart?: boolean;
+  movingEnd?: boolean;
 }
+export type algo = TDijsktra | TBFS | TDFS | TBellmanFord;

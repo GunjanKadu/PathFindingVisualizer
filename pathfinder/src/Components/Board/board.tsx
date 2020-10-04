@@ -121,45 +121,54 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
   algoChange(text: string) {
     const { grid, start, end, visualized } = this.state;
     if (visualized) return;
-    const algo: { newAlgo: algo; newAlgoText: string; newGrid: IGrid } = {};
+    if (start && end && grid) {
+      const algo: {
+        newAlgo: algo | null;
+        newAlgoText: string | null;
+        newGrid: IGrid | null;
+      } = { newAlgo: null, newAlgoText: null, newGrid: null };
 
-    this.unvisitNodes(false, start, end);
-    switch (text) {
-      case "Dijkstra":
-        algo.newAlgo = Dijkstra;
-        algo.newAlgoText = "Dijkstra's";
-        algo.newGrid = new Grid(Dijkstra.weighted, start, end);
-        break;
-      case "BFS":
-        algo.newAlgo = BFS;
-        algo.newAlgoText = "Breadth-First Search";
-        algo.newGrid = new Grid(BFS.weighted, start, end);
-        break;
-      case "DFS":
-        algo.newAlgo = DFS;
-        algo.newAlgoText = "Depth-First Search";
-        algo.newGrid = new Grid(DFS.weighted, start, end);
-        break;
-      case "Bellman-Ford":
-        algo.newAlgo = BellmanFord;
-        algo.newAlgoText = "Bellman-Ford";
-        algo.newGrid = new Grid(BellmanFord.weighted, start, end);
-        break;
-      default:
-        return;
+      this.unvisitNodes(false, start, end);
+      switch (text) {
+        case "Dijkstra":
+          algo.newAlgo = Dijkstra;
+          algo.newAlgoText = "Dijkstra's";
+          algo.newGrid = new Grid(Dijkstra.weighted, start, end);
+          break;
+        case "BFS":
+          algo.newAlgo = BFS;
+          algo.newAlgoText = "Breadth-First Search";
+          algo.newGrid = new Grid(BFS.weighted, start, end);
+          break;
+        case "DFS":
+          algo.newAlgo = DFS;
+          algo.newAlgoText = "Depth-First Search";
+          algo.newGrid = new Grid(DFS.weighted, start, end);
+          break;
+        case "Bellman-Ford":
+          algo.newAlgo = BellmanFord;
+          algo.newAlgoText = "Bellman-Ford";
+          algo.newGrid = new Grid(BellmanFord.weighted, start, end);
+          break;
+        default:
+          return;
+      }
+      algo.newGrid = this.keepWalls(grid, algo.newGrid);
+      this.setState({
+        algo: algo.newAlgo,
+        algoText: algo.newAlgoText,
+        grid: algo.newGrid,
+      });
     }
-    algo.newGrid = this.keepWalls(grid, algo.newGrid);
-    this.setState({
-      algo: algo.newAlgo,
-      algoText: algo.newAlgoText,
-      grid: algo.newGrid,
-    });
   }
 
   /* Handles the speed selection updating.
   This feature is currently not implemented.*/
   speedChange(text: string) {
-    const speeds = {};
+    const speeds: {
+      visitedSpeed: number | null;
+      shortestSpeed: number | null;
+    } = { visitedSpeed: null, shortestSpeed: null };
     switch (text) {
       case "Slow":
         speeds.visitedSpeed = 75;
@@ -176,58 +185,74 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
       default:
         return;
     }
-    this.state.animator.updateSpeed(speeds.visitedSpeed, speeds.shortestSpeed);
+    this.state.animator?.updateSpeed(speeds.visitedSpeed, speeds.shortestSpeed);
   }
 
   /* Runs the process of visualizing the algorithm.*/
   visualize() {
     const { grid, algo, visualized, start, end, animator } = this.state;
     if (visualized) return;
-    this.unvisitNodes(false, start, end);
-    this.setState({ visualized: true });
-    const traverser = new algo();
-    const startNode = grid.grid[start[0]][start[1]];
-    const endNode = grid.grid[end[0]][end[1]];
-    if (startNode.isWall) {
-      startNode.isWall = !startNode.isWall;
+    if (grid && start && end && algo && animator) {
+      this.unvisitNodes(false, start, end);
+      this.setState({ visualized: true });
+      const traverser = new algo();
+      const startNode = grid.grid[start[0]][start[1]];
+      const endNode = grid.grid[end[0]][end[1]];
+      if (startNode.isWall) {
+        startNode.isWall = !startNode.isWall;
+      }
+      if (endNode.isWall) {
+        endNode.isWall = !endNode.isWall;
+      }
+      let visitedNodesInOrder:
+        | Array<INodeProperties>
+        | undefined = traverser.traverse(grid.grid, startNode, endNode);
+      let shortestPath = traverser.getShortestPath(startNode, endNode);
+      if (visitedNodesInOrder) {
+        animator?.animate(visitedNodesInOrder, shortestPath);
+        let buttonLockTime =
+          visitedNodesInOrder.length * animator.visitedSpeed +
+          shortestPath.length * animator.shortestSpeed;
+        setTimeout(() => this.setState({ visualized: false }), buttonLockTime);
+      }
     }
-    if (endNode.isWall) {
-      endNode.isWall = !endNode.isWall;
-    }
-    let visitedNodesInOrder = traverser.traverse(grid.grid, startNode, endNode);
-    let shortestPath = traverser.getShortestPath(startNode, endNode);
-    animator.animate(visitedNodesInOrder, shortestPath);
-    let buttonLockTime =
-      visitedNodesInOrder.length * animator.visitedSpeed +
-      shortestPath.length * animator.shortestSpeed;
-    setTimeout(() => this.setState({ visualized: false }), buttonLockTime);
   }
 
   unvisitNodes(removeWalls: boolean, start: Array<number>, end: Array<number>) {
     const { grid } = this.state;
     for (let row = 0; row < 19; row++) {
       for (let col = 0; col < 49; col++) {
-        let node: INodeProperties = grid?.grid[row][col];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node ";
-        node.isVisited = false;
-        node.previous = null;
-        node.distance = Infinity;
-        if (removeWalls) {
-          node.isWall = false;
-        } else if (node.isWall) {
-          document.getElementById(`node-${node.row}-${node.col}`).className =
-            "node node-wall";
-        }
-        if (row === start[0] && col === start[1]) {
-          document.getElementById(`node-${start[0]}-${start[1]}`).className =
-            "node node-start";
-          node.isStart = true;
-        }
-        if (row === end[0] && col === end[1]) {
-          document.getElementById(`node-${end[0]}-${end[1]}`).className =
-            "node node-end";
-          node.isEnd = true;
+        let node: INodeProperties | undefined = grid?.grid[row][col];
+        if (node) {
+          const newLocal = document.getElementById(
+            `node-${node.row}-${node.col}`
+          );
+          if (newLocal) newLocal.className = "node ";
+          node.isVisited = false;
+          node.previous = null;
+          node.distance = Infinity;
+          if (removeWalls) {
+            node.isWall = false;
+          } else if (node.isWall) {
+            const newLocal_1 = document.getElementById(
+              `node-${node.row}-${node.col}`
+            );
+            if (newLocal_1) newLocal_1.className = "node node-wall";
+          }
+          if (row === start[0] && col === start[1]) {
+            const newLocal_2 = document.getElementById(
+              `node-${start[0]}-${start[1]}`
+            );
+            if (newLocal_2) newLocal_2.className = "node node-start";
+            node.isStart = true;
+          }
+          if (row === end[0] && col === end[1]) {
+            const newLocal_3 = document.getElementById(
+              `node-${end[0]}-${end[1]}`
+            );
+            if (newLocal_3) newLocal_3.className = "node node-end";
+            node.isEnd = true;
+          }
         }
       }
     }
@@ -247,16 +272,18 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
   newWeights() {
     const { grid, algo, start, end, visualized } = this.state;
     if (visualized) return;
-    this.unvisitNodes(false, start, end);
-    const newGrid = new Grid(algo.weighted, start, end);
-    for (let row = 0; row < 19; row++) {
-      for (let col = 0; col < 49; col++) {
-        if (grid.grid[row][col].isWall) {
-          newGrid.grid[row][col].isWall = true;
+    if (start && algo && grid && end) {
+      this.unvisitNodes(false, start, end);
+      const newGrid = new Grid(algo.weighted, start, end);
+      for (let row = 0; row < 19; row++) {
+        for (let col = 0; col < 49; col++) {
+          if (grid.grid[row][col].isWall) {
+            newGrid.grid[row][col].isWall = true;
+          }
         }
       }
+      this.setState({ grid: newGrid });
     }
-    this.setState({ grid: newGrid });
   }
 
   /* Function to transfer wall locations from
@@ -275,24 +302,26 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
   /* Handles the generation of implemented mazes.*/
   generateMaze(type: string) {
     const { grid, start, end } = this.state;
-    this.unvisitNodes(true, start, end);
-    switch (type) {
-      case "Random":
-        randomWalls(grid);
-        break;
-      case "RecursiveDivision":
-        recursiveDivision(grid);
-        break;
-      default:
-        return;
+    if (grid && start && end) {
+      this.unvisitNodes(true, start, end);
+      switch (type) {
+        case "Random":
+          randomWalls(grid);
+          break;
+        case "RecursiveDivision":
+          recursiveDivision(grid);
+          break;
+        default:
+          return;
+      }
+      this.setState({ grid: grid });
+      /*
+      For some reason the following line is needed to
+      actually render things correctly if you try and
+      generate two mazes without doing some other action.
+      */
+      this.unvisitNodes(false, start, end);
     }
-    this.setState({ grid: grid });
-    /*
-    For some reason the following line is needed to
-    actually render things correctly if you try and
-    generate two mazes without doing some other action.
-    */
-    this.unvisitNodes(false, start, end);
   }
 
   render() {
@@ -310,9 +339,9 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
         ></Header>
 
         <h3>The current algorithm is {this.state.algoText}.</h3>
-        <div className="information">{algo.text}</div>
+        <div className="information">{algo?.text}</div>
         <div className="board">
-          {grid.grid.map((row, rowIndex) => {
+          {grid?.grid.map((row, rowIndex) => {
             return (
               <div key={rowIndex}>
                 {row.map((node, nodeIndex) => {
@@ -326,8 +355,10 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
                       isStart={isStart}
                       isWall={isWall}
                       mouseIsPressed={mouseIsPressed}
-                      onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                      onMouseEnter={(row, col) =>
+                      onMouseDown={(row: number, col: number) =>
+                        this.handleMouseDown(row, col)
+                      }
+                      onMouseEnter={(row: number, col: number) =>
                         this.handleMouseEnter(row, col)
                       }
                       onMouseUp={() => this.handleMouseUp()}
