@@ -7,9 +7,6 @@ export interface IGrid {
   toggleWall: (row: number, col: number) => void;
   toggleStart: (row: number, col: number) => void;
   toggleEnd: (row: number, col: number) => void;
-  getCurrentGeneratedGraph: () => IGraph;
-  grid: Array<Array<INodeProperties>>;
-  graph: any;
 }
 
 export interface INodeProperties {
@@ -30,20 +27,24 @@ export interface INodeProps {
   isWall: boolean;
   row: number;
   column: number;
+  identifier: string;
   onMouseDown: (row: number, col: number) => any;
   onMouseUp: () => any;
   onMouseEnter: (row: number, col: number) => any;
   // onClick: () => void;
 }
 export interface IState {
-  isMousePressed: boolean;
+  algo: IDijkstra;
+  algoText: String;
+  speed: String;
   grid: IGrid;
-  defaultStart: Array<number>;
-  defaultEnd: Array<number>;
+  mouseIsPressed: false;
+  animator: IAnimator;
+  visualized: false;
+  start: Array<number>;
+  end: Array<number>;
   movingStart: boolean;
   movingEnd: boolean;
-  graph: IGraph | undefined;
-  isVisualizedClicked: boolean;
 }
 export interface IGraph {
   node: { [key: string]: INodeProperties };
@@ -62,8 +63,11 @@ export interface IPriorityQueue {
 export interface IDijkstra {
   nodes: { [key: string]: INodeProperties };
   graph: { [key: string]: Array<string> };
-  Dijkstra: (start: string, end: string) => any;
+  visitedNodes: Array<string>;
+  shortestPath: Array<string>;
+  Dijkstra: (start: string, end: string) => Array<string>;
   setInitialState: (distances: {}, previous: {}, queue: IPriorityQueue) => any;
+  getAllVisitedNodes: () => Array<string>;
 }
 export interface IHeader {
   visualize: boolean;

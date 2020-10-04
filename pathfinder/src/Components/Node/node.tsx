@@ -14,6 +14,7 @@ function Node(props: INodeProps) {
   return (
     <div className="node__container">
       <div
+        id={`node-${props.identifier}`}
         className={`node ${getNodeType(props)}`}
         onMouseDown={() => props.onMouseDown(props.row, props.column)}
         onMouseUp={() => props.onMouseUp()}

@@ -1,6 +1,6 @@
 .node {
-  height: 35px;
-  width: 35px;
+  height: 25px;
+  width: 25px;
   font-size: 10px;
   border: 1px solid black;
   cursor: pointer;
@@ -23,4 +23,23 @@
 .node__isWall {
   background-color: black;
   color: black;
+}
+.node-visited {
+  background-color: #3074f2;
+  animation-name: visited;
+  animation-duration: 3s;
+}
+@keyframes visited {
+  from {
+    transform: scale(0.25);
+    background-color: red;
+  }
+  50% {
+    background-color: purple;
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1);
+    background-color: #3074f2;
+  }
 }

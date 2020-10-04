@@ -3,7 +3,8 @@ import { IDijkstra, INodeProperties, IPriorityQueue } from "../interfaces";
 export default class Dijsktra implements IDijkstra {
   nodes: { [key: string]: INodeProperties };
   graph: { [key: string]: Array<string> };
-
+  visitedNodes: Array<string> = [];
+  shortestPath: Array<string> = [];
   constructor(nodes: any, graph: any) {
     this.nodes = nodes;
     this.graph = graph;
@@ -13,7 +14,7 @@ export default class Dijsktra implements IDijkstra {
     const distances: { [key: string]: number } = {};
     const previous: { [key: string]: string | null } = {};
     const queue = new PriorityQueue();
-    const path = [];
+
     this.setInitialState(distances, previous, queue);
     while (queue.queue.length > 0) {
       let smallestWeightedVertex:
@@ -23,16 +24,16 @@ export default class Dijsktra implements IDijkstra {
       let key: any = `${smallestWeightedVertex?.node.column}${smallestWeightedVertex?.node.row}`;
       if (end === key) {
         while (previous[key]) {
-          path.push(key);
+          this.shortestPath.push(key);
           key = previous[key];
         }
-        path.push(start);
-
+        this.shortestPath.push(start);
         break;
       }
       for (let vertex in this.graph[key]) {
         //   console.log(this.graph[key][vertex]);
         let neighbour: INodeProperties = this.nodes[this.graph[key][vertex]];
+        this.visitedNodes.push(neighbour.identifier);
         let distanceToNextNode: number = distances[key] + neighbour.weight;
         if (
           distances[`${neighbour.column}${neighbour.row}`] > distanceToNextNode
@@ -44,7 +45,8 @@ export default class Dijsktra implements IDijkstra {
         }
       }
     }
-    console.log(path.reverse());
+    console.log(this.shortestPath);
+    return this.shortestPath.reverse()
   }
   setInitialState(
     distances: { [key: string]: number },
@@ -61,6 +63,9 @@ export default class Dijsktra implements IDijkstra {
       }
       previous[vertex] = null;
     }
+  }
+  getAllVisitedNodes() {
+    return this.visitedNodes;
   }
 }
 
