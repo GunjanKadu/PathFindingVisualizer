@@ -56,6 +56,20 @@ export interface IBFS {
     endNode: INodeProperties
   ) => Array<INodeProperties> | undefined;
 }
+export interface IBellMan {
+  traverse: (
+    grid: Array<Array<INodeProperties>>,
+    startNode: INodeProperties,
+    endNode: INodeProperties
+  ) => Array<INodeProperties> | undefined;
+}
+export interface IDFS {
+  traverse: (
+    grid: Array<Array<INodeProperties>>,
+    startNode: INodeProperties,
+    endNode: INodeProperties
+  ) => Array<INodeProperties> | undefined;
+}
 export interface IHeader {
   visualize: boolean;
   changeAlgo: (value: string) => void;
