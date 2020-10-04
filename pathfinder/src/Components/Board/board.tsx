@@ -7,11 +7,13 @@ import { randomWalls, recursiveDivision } from "../mazes/mazes";
 import Grid from "../../Utility/grid";
 import "./Visualizer.css";
 import {
+  algo,
   IBellMan,
   IBFS,
   IDFS,
   IDijkstra,
   IGrid,
+  INodeProperties,
   IVisualizerState,
 } from "../../Utility/interfaces";
 import BellmanFord from "../../Utility/Algorithms/BellmanFord";
@@ -29,7 +31,7 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     super(props);
 
     this.state = {
-      algo: Dijkstra(),
+      algo: Dijkstra,
       algoText: "Dijkstra's",
       speed: "Fast",
       grid: new Grid(Dijkstra.weighted, DEFAULT_START, DEFAULT_END),
@@ -119,7 +121,7 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
   algoChange(text: string) {
     const { grid, start, end, visualized } = this.state;
     if (visualized) return;
-    const algo: { newAlgo: TDijsktra } = {};
+    const algo: { newAlgo: algo; newAlgoText: string; newGrid: IGrid } = {};
 
     this.unvisitNodes(false, start, end);
     switch (text) {
@@ -205,7 +207,7 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     const { grid } = this.state;
     for (let row = 0; row < 19; row++) {
       for (let col = 0; col < 49; col++) {
-        let node = grid.grid[row][col];
+        let node: INodeProperties = grid?.grid[row][col];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node ";
         node.isVisited = false;
