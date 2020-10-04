@@ -7,11 +7,26 @@ export interface IGrid {
     start: Array<number>,
     end: Array<number>
   ) => INodeProperties;
+  initializeGrid: (
+    weighted: boolean,
+    start: Array<number>,
+    end: Array<number>
+  ) => Array<Array<INodeProperties>>;
   toggleWall: (row: number, col: number) => void;
   toggleStart: (row: number, col: number) => void;
   toggleEnd: (row: number, col: number) => void;
 }
-
+export interface IFinder {
+  getUnvisitedNeighbors: (
+    node: INodeProperties,
+    grid: Array<Array<INodeProperties>>
+  ) => Array<INodeProperties>;
+  getShortestPath(
+    startNode: INodeProperties,
+    endNode: INodeProperties
+  ): Array<INodeProperties>;
+  getAllNodes: (grid: Array<Array<INodeProperties>>) => Array<INodeProperties>;
+}
 export interface INodeProperties {
   col: number;
   row: number;
