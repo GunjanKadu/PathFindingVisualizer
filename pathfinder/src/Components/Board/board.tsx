@@ -1,27 +1,35 @@
 import React, { Component } from "react";
-import Header from "./Header/Header";
-import Node from "./Node/Node";
-import Animator from "./Animator";
-import Dijkstra from "../algorithms/Dijkstra";
-import BFS from "../algorithms/BFS";
-import DFS from "../algorithms/DFS";
-import BellmanFord from "../algorithms/BellmanFord";
-import { randomWalls, recursiveDivision } from "../mazes/mazes";
-import Grid from "./Grid";
-import "./Visualizer.css";
-import { IState } from "../../Utility/interfaces";
+import Header from "../TopBar/topbar";
+import Node from "../Node/node";
+import Animator from "../../Utility/Animator";
 
-const DEFAULT_START = [9, 9];
-const DEFAULT_END = [9, 39];
+import { randomWalls, recursiveDivision } from "../mazes/mazes";
+import Grid from "../../Utility/grid";
+import "./Visualizer.css";
+import {
+  IBellMan,
+  IBFS,
+  IDFS,
+  IDijkstra,
+  IGrid,
+  IVisualizerState,
+} from "../../Utility/interfaces";
+import BellmanFord from "../../Utility/Algorithms/BellmanFord";
+import BFS from "../../Utility/Algorithms/BFS";
+import DFS from "../../Utility/Algorithms/DFS";
+import Dijkstra, { TDijsktra } from "../../Utility/Algorithms/Dijkstra";
+
+const DEFAULT_START: Array<number> = [9, 9];
+const DEFAULT_END: Array<number> = [9, 39];
 /*
 Visualizer component which controls much of the functionality of the app.
 */
-export default class Visualizer extends Component<{}, IState> {
+export default class Visualizer extends Component<{}, IVisualizerState> {
   constructor(props) {
     super(props);
 
     this.state = {
-      algo: Dijkstra,
+      algo: Dijkstra(),
       algoText: "Dijkstra's",
       speed: "Fast",
       grid: new Grid(Dijkstra.weighted, DEFAULT_START, DEFAULT_END),
@@ -47,21 +55,23 @@ export default class Visualizer extends Component<{}, IState> {
   modifying of nodes to become walls and also
   the moving of the start and ending nodes.
   */
-  handleMouseDown(row, col) {
+  handleMouseDown(row: number, col: number) {
     console.log("Mouse Down");
     const { grid, start, end, visualized } = this.state;
     if (visualized) return;
-    if (row === start[0] && col === start[1]) {
-      this.setState({ movingStart: true });
-    } else if (row === end[0] && col === end[1]) {
-      this.setState({ movingEnd: true });
-    } else {
-      grid.toggleWall(row, col);
+    if (start && end) {
+      if (row === start[0] && col === start[1]) {
+        this.setState({ movingStart: true });
+      } else if (row === end[0] && col === end[1]) {
+        this.setState({ movingEnd: true });
+      } else {
+        grid && grid.toggleWall(row, col);
+      }
+      this.setState({ grid: grid, mouseIsPressed: true });
     }
-    this.setState({ grid: grid, mouseIsPressed: true });
   }
 
-  handleMouseEnter(row, col) {
+  handleMouseEnter(row: number, col: number) {
     console.log("Mouse Enter");
     const {
       grid,
@@ -73,23 +83,25 @@ export default class Visualizer extends Component<{}, IState> {
       visualized,
     } = this.state;
     if (!mouseIsPressed || visualized) return;
-    if (movingStart) {
-      grid.toggleStart(row, col);
-      grid.toggleStart(start[0], start[1]);
+    if (start && end) {
+      if (movingStart) {
+        grid && grid.toggleStart(row, col);
+        grid && grid.toggleStart(start[0], start[1]);
+        this.setState({
+          start: [row, col],
+          movingStart: true,
+        });
+      } else if (movingEnd) {
+        grid && grid.toggleEnd(row, col);
+        grid && grid.toggleEnd(end[0], end[1]);
+        this.setState({ end: [row, col], movingEnd: true });
+      } else {
+        grid && grid.toggleWall(row, col);
+      }
       this.setState({
-        start: [row, col],
-        movingStart: true,
+        grid: grid,
       });
-    } else if (movingEnd) {
-      grid.toggleEnd(row, col);
-      grid.toggleEnd(end[0], end[1]);
-      this.setState({ end: [row, col], movingEnd: true });
-    } else {
-      grid.toggleWall(row, col);
     }
-    this.setState({
-      grid: grid,
-    });
   }
 
   handleMouseUp() {
@@ -104,10 +116,10 @@ export default class Visualizer extends Component<{}, IState> {
   }
 
   /* Handles the selection of algorithms.*/
-  algoChange(text) {
+  algoChange(text: string) {
     const { grid, start, end, visualized } = this.state;
     if (visualized) return;
-    const algo = {};
+    const algo: { newAlgo: TDijsktra } = {};
 
     this.unvisitNodes(false, start, end);
     switch (text) {
@@ -144,7 +156,7 @@ export default class Visualizer extends Component<{}, IState> {
 
   /* Handles the speed selection updating.
   This feature is currently not implemented.*/
-  speedChange(text) {
+  speedChange(text: string) {
     const speeds = {};
     switch (text) {
       case "Slow":
@@ -189,7 +201,7 @@ export default class Visualizer extends Component<{}, IState> {
     setTimeout(() => this.setState({ visualized: false }), buttonLockTime);
   }
 
-  unvisitNodes(removeWalls, start, end) {
+  unvisitNodes(removeWalls: boolean, start: Array<number>, end: Array<number>) {
     const { grid } = this.state;
     for (let row = 0; row < 19; row++) {
       for (let col = 0; col < 49; col++) {
@@ -247,7 +259,7 @@ export default class Visualizer extends Component<{}, IState> {
 
   /* Function to transfer wall locations from
  the previous grid to a new grid.*/
-  keepWalls(grid, newGrid) {
+  keepWalls(grid: IGrid, newGrid: IGrid) {
     for (let row = 0; row < 19; row++) {
       for (let col = 0; col < 49; col++) {
         if (grid.grid[row][col].isWall) {
@@ -259,7 +271,7 @@ export default class Visualizer extends Component<{}, IState> {
   }
 
   /* Handles the generation of implemented mazes.*/
-  generateMaze(type) {
+  generateMaze(type: string) {
     const { grid, start, end } = this.state;
     this.unvisitNodes(true, start, end);
     switch (type) {
