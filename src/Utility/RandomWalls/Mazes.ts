@@ -66,3 +66,25 @@ function addInnerWalls(
     addInnerWalls(grid, !h, x + 1, maxX, minY, maxY);
   }
 }
+
+function addHWall(grid: IGrid, minX: number, maxX: number, y: number) {
+  var hole = Math.floor(randomNumber(minX, maxX) / 2) * 2 + 1;
+  var hole2 = Math.floor(randomNumber(minX, maxX) / 2) * 2 + 1;
+  for (var i = minX; i <= maxX; i++) {
+    if (i === hole || i === hole2) continue;
+    grid.toggleWall(y, i);
+  }
+}
+
+function addVWall(grid: IGrid, minY: number, maxY: number, x: number) {
+  var hole = Math.floor(randomNumber(minY, maxY) / 2) * 2 + 1;
+  var hole2 = Math.floor(randomNumber(minY, maxY) / 2) * 2 + 1;
+  for (var i = minY; i <= maxY; i++) {
+    if (i === hole || i === hole2) continue;
+    grid.toggleWall(i, x);
+  }
+}
+
+function randomNumber(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
