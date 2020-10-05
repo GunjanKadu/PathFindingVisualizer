@@ -1,34 +1,42 @@
-.node {
-  height: 25px;
-  width: 25px;
-  font-size: 10px;
+.node-box {
+  width: 26px;
+  height: 26px;
   border: 1px solid black;
-  cursor: pointer;
-
+  display: inline-block;
+}
+.node {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  text-align: center;
+  color: black;
   -webkit-user-select: none; /* Webkit */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE 10  */
   -o-user-select: none;
   user-select: none;
-  transition: all 0.35s ease-in;
 }
-.node__defaultStart {
-  background-color: red;
-  color: red;
-}
-.node__defaultEnd {
+
+.node-start {
   background-color: green;
   color: green;
 }
-.node__isWall {
-  background-color: black;
-  color: black;
+
+.node-end {
+  background-color: red;
+  color: red;
 }
+
+.node-wall {
+  background-color: black;
+}
+
 .node-visited {
   background-color: #3074f2;
   animation-name: visited;
   animation-duration: 3s;
 }
+
 @keyframes visited {
   from {
     transform: scale(0.25);
@@ -41,5 +49,26 @@
   to {
     transform: scale(1);
     background-color: #3074f2;
+  }
+}
+
+.node-shortest-path {
+  background-color: yellow;
+  animation-name: shortest;
+  animation-duration: 3s;
+}
+
+@keyframes shortest {
+  from {
+    transform: scale(0.25);
+    background-color: red;
+  }
+  50% {
+    transform: scale(1);
+    background-color: orange;
+  }
+  to {
+    transform: scale(1);
+    background-color: yellow;
   }
 }
