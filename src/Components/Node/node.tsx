@@ -1,30 +1,48 @@
-import React from "react";
+import React, { Component } from "react";
 import { INodeProps } from "../../Utility/interfaces";
-import "./node.css";
 
-function Node(props: INodeProps) {
-  const getNodeType = (props: INodeProps): string => {
-    let type = "";
-    if (props.isStart) type = "node__defaultStart";
-    if (props.isEnd) type = "node__defaultEnd";
-    if (props.isWall) type = "node__isWall";
+import "./Node.css";
+
+/*
+React compoenent used to represent the Nodes in the generated page.
+*/
+export default class Node extends Component<INodeProps, {}> {
+  nodeType = (node: INodeProps): string => {
+    const type = node.isEnd
+      ? "node-end"
+      : node.isStart
+      ? "node-start"
+      : node.isWall
+      ? "node-wall"
+      : " ";
     return type;
   };
 
-  return (
-    <div className="node__container">
-      <div
-        id={`node-${props.identifier}`}
-        className={`node ${getNodeType(props)}`}
-        onMouseDown={() => props.onMouseDown(props.row, props.column)}
-        onMouseUp={() => props.onMouseUp()}
-        onMouseEnter={() => props.onMouseEnter(props.row, props.column)}
-      >
-        {`${props.column}${props.row}`}
-        {/* {props.weight} */}
+  render() {
+    const {
+      col,
+      row,
+      isEnd,
+      isStart,
+      isVisited,
+      isWall,
+      onMouseDown,
+      onMouseEnter,
+      onMouseUp,
+      weight,
+    } = this.props;
+    return (
+      <div className="node-box">
+        <div
+          id={`node-${row}-${col}`}
+          className={`node ${this.nodeType(this.props)}`}
+          onMouseDown={() => onMouseDown(row, col)}
+          onMouseEnter={() => onMouseEnter(row, col)}
+          onMouseUp={() => onMouseUp()}
+        >
+          <p>{weight}</p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-export default Node;
