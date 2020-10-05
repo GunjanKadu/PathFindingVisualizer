@@ -3,7 +3,10 @@ import Header from "../TopBar/topbar";
 import Node from "../Node/node";
 import Animator from "../../Utility/Animator";
 
-// import { randomWalls, recursiveDivision } from "../mazes/mazes";
+import {
+  randomWalls,
+  recursiveDivision,
+} from "../../Utility/RandomWalls/Mazes";
 import Grid from "../../Utility/grid";
 import {
   algo,
@@ -299,10 +302,10 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
       this.unvisitNodes(true, start, end);
       switch (type) {
         case "Random":
-          // randomWalls(grid);
+          randomWalls(grid);
           break;
         case "RecursiveDivision":
-          // recursiveDivision(grid);
+          recursiveDivision(grid);
           break;
         default:
           return;
