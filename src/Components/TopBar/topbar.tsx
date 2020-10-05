@@ -3,9 +3,9 @@ import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import "./Header.css";
 import { IHeader } from "../../Utility/interfaces";
 
+import "./topbar.css";
 /*
 Controls menu for the pathfinding visualizer app.
 */

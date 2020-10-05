@@ -3,9 +3,8 @@ import Header from "../TopBar/topbar";
 import Node from "../Node/node";
 import Animator from "../../Utility/Animator";
 
-import { randomWalls, recursiveDivision } from "../mazes/mazes";
+// import { randomWalls, recursiveDivision } from "../mazes/mazes";
 import Grid from "../../Utility/grid";
-import "./Visualizer.css";
 import {
   algo,
   IGrid,
@@ -17,13 +16,14 @@ import BFS from "../../Utility/Algorithms/BFS";
 import DFS from "../../Utility/Algorithms/DFS";
 import Dijkstra from "../../Utility/Algorithms/Dijkstra";
 
+import "./board.css";
 const DEFAULT_START: Array<number> = [9, 9];
 const DEFAULT_END: Array<number> = [9, 39];
 /*
 Visualizer component which controls much of the functionality of the app.
 */
 export default class Visualizer extends Component<{}, IVisualizerState> {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
     this.state = {
@@ -302,10 +302,10 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
       this.unvisitNodes(true, start, end);
       switch (type) {
         case "Random":
-          randomWalls(grid);
+          // randomWalls(grid);
           break;
         case "RecursiveDivision":
-          recursiveDivision(grid);
+          // recursiveDivision(grid);
           break;
         default:
           return;

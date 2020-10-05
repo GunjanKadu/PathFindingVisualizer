@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { INodeProps } from "../../Utility/interfaces";
 
-import "./Node.css";
+import "./node.css";
 
 /*
 React compoenent used to represent the Nodes in the generated page.
