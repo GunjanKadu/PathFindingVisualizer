@@ -106,14 +106,17 @@ export interface INodeProperties {
 }
 
 export interface INodeProps {
-  column: number;
+  col: number;
   row: number;
-  weight: number;
-  key: string;
-  isStart: boolean;
   isEnd: boolean;
+  isStart: boolean;
+  isVisited: boolean;
   isWall: boolean;
-  identifier: string;
+  mouseIsPressed: boolean | undefined;
+  onMouseDown: (row: number, col: number) => void;
+  onMouseEnter: (row: number, col: number) => void;
+  onMouseUp: () => void;
+  weight: number;
 }
 export interface IVisualizerState {
   algo?: algo;
