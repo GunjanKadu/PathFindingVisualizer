@@ -54,7 +54,6 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
   the moving of the start and ending nodes.
   */
   handleMouseDown(row: number, col: number) {
-    console.log("Mouse Down");
     const { grid, start, end, visualized } = this.state;
     if (visualized) return;
     if (start && end) {
@@ -70,7 +69,6 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
   }
 
   handleMouseEnter(row: number, col: number) {
-    console.log("Mouse Enter");
     const {
       grid,
       start,
@@ -103,7 +101,6 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
   }
 
   handleMouseUp() {
-    console.log("Mouse Up");
     const { visualized } = this.state;
     if (visualized) return;
     this.setState({
