@@ -76,9 +76,13 @@ export interface IDFS {
   ) => Array<INodeProperties> | undefined;
 }
 export interface IHeader {
-  visualize: boolean;
   changeAlgo: (value: string) => void;
-  startVisualizing: () => void;
+  changeSpeed: (value: string) => void;
+  changeWeights: () => void;
+  clearBoard: () => void;
+  generateMaze: (value: string) => void;
+  visualize: () => void;
+  visualized: boolean | undefined;
 }
 export interface IAnimator {
   visitedSpeed: number;

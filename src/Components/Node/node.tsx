@@ -22,10 +22,6 @@ export default class Node extends Component<INodeProps, {}> {
     const {
       col,
       row,
-      isEnd,
-      isStart,
-      isVisited,
-      isWall,
       onMouseDown,
       onMouseEnter,
       onMouseUp,
