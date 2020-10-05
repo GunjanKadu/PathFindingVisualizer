@@ -323,48 +323,51 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
   render() {
     const { grid, mouseIsPressed, visualized, algo } = this.state;
     return (
-      <div>
-        <Header
-          visualize={this.visualize}
-          changeAlgo={this.algoChange}
-          changeSpeed={this.speedChange}
-          clearBoard={this.clearBoard}
-          changeWeights={this.newWeights}
-          visualized={visualized}
-          generateMaze={this.generateMaze}
-        ></Header>
-
-        <h3>The current algorithm is {this.state.algoText}.</h3>
-        <div className="information">{algo?.text}</div>
-        <div className="board">
-          {grid?.grid.map((row, rowIndex) => {
-            return (
-              <div key={rowIndex}>
-                {row.map((node, nodeIndex) => {
-                  const { row, col, isEnd, isStart, isWall, weight } = node;
-                  return (
-                    <Node
-                      key={nodeIndex}
-                      col={col}
-                      row={row}
-                      isEnd={isEnd}
-                      isStart={isStart}
-                      isWall={isWall}
-                      mouseIsPressed={mouseIsPressed}
-                      onMouseDown={(row: number, col: number) =>
-                        this.handleMouseDown(row, col)
-                      }
-                      onMouseEnter={(row: number, col: number) =>
-                        this.handleMouseEnter(row, col)
-                      }
-                      onMouseUp={() => this.handleMouseUp()}
-                      weight={weight}
-                    ></Node>
-                  );
-                })}
-              </div>
-            );
-          })}
+      <div className="holder">
+        <div className="header">
+          <Header
+            visualize={this.visualize}
+            changeAlgo={this.algoChange}
+            changeSpeed={this.speedChange}
+            clearBoard={this.clearBoard}
+            changeWeights={this.newWeights}
+            visualized={visualized}
+            generateMaze={this.generateMaze}
+          ></Header>
+        </div>
+        <div className="body">
+          <h3>The current algorithm is {this.state.algoText}.</h3>
+          <div className="information">{algo?.text}</div>
+          <div className="board">
+            {grid?.grid.map((row, rowIndex) => {
+              return (
+                <div key={rowIndex}>
+                  {row.map((node, nodeIndex) => {
+                    const { row, col, isEnd, isStart, isWall, weight } = node;
+                    return (
+                      <Node
+                        key={nodeIndex}
+                        col={col}
+                        row={row}
+                        isEnd={isEnd}
+                        isStart={isStart}
+                        isWall={isWall}
+                        mouseIsPressed={mouseIsPressed}
+                        onMouseDown={(row: number, col: number) =>
+                          this.handleMouseDown(row, col)
+                        }
+                        onMouseEnter={(row: number, col: number) =>
+                          this.handleMouseEnter(row, col)
+                        }
+                        onMouseUp={() => this.handleMouseUp()}
+                        weight={weight}
+                      ></Node>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     );

@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { IHeader } from "../../Utility/interfaces";
-
+import FavoriteTwoToneIcon from "@material-ui/icons/FavoriteTwoTone";
 import "./topbar.css";
 /*
 Controls menu for the pathfinding visualizer app.
@@ -12,12 +12,22 @@ Controls menu for the pathfinding visualizer app.
 export default class Header extends Component<IHeader, {}> {
   render() {
     return (
-      <div>
-        <Navbar expand="lg" bg="dark" variant="dark">
-          <Navbar.Brand href=".">Pathfinding Algorithm Visualizer</Navbar.Brand>
+      <div className="nav">
+        <Navbar
+          expand="lg"
+          bg="light"
+          variant="light"
+          className="flex-column border"
+        >
+          <Navbar.Brand
+            href="."
+            style={{ color: "darkslategray", fontWeight: "bold" }}
+          >
+            Pathfinding Visualizer
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
+            <Nav className="mr-auto flex-column">
               <NavDropdown
                 title="Algorithms"
                 id="basic-nav-dropdown"
@@ -52,27 +62,7 @@ export default class Header extends Component<IHeader, {}> {
                   DFS
                 </NavDropdown.Item>
               </NavDropdown>
-              <Button
-                className="non-visualize-button"
-                onClick={this.props.changeWeights}
-                disabled={this.props.visualized}
-              >
-                New Weights
-              </Button>
-              <Button
-                className="visualize-it-button"
-                onClick={this.props.visualize}
-                disabled={this.props.visualized}
-              >
-                Visualize It!
-              </Button>
-              <Button
-                className="non-visualize-button"
-                onClick={this.props.clearBoard}
-                disabled={this.props.visualized}
-              >
-                Clear Board
-              </Button>
+
               <NavDropdown
                 title="Maze Algorithms"
                 id="basic-nav-dropdown"
@@ -132,8 +122,33 @@ export default class Header extends Component<IHeader, {}> {
                   Fast
                 </NavDropdown.Item>
               </NavDropdown>
+              <Button
+                className="non-visualize-button"
+                onClick={this.props.changeWeights}
+                disabled={this.props.visualized}
+              >
+                New Weights
+              </Button>
+
+              <Button
+                className="non-visualize-button"
+                onClick={this.props.clearBoard}
+                disabled={this.props.visualized}
+              >
+                New Board
+              </Button>
+              <Button
+                className="visualize-it-button"
+                onClick={this.props.visualize}
+                disabled={this.props.visualized}
+              >
+                Visualize
+              </Button>
             </Nav>
           </Navbar.Collapse>
+          <Nav.Link href="https://github.com/GunjanKadu">
+            Made By : Gunjan Kadu <FavoriteTwoToneIcon />
+          </Nav.Link>
         </Navbar>
       </div>
     );

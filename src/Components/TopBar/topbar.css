@@ -25,7 +25,7 @@
 }
 
 .non-visualize-button:hover {
-  color: white;
+  color: #007bff;
   background-color: inherit;
 }
 .non-visualize-button:disabled {
@@ -49,4 +49,11 @@
 }
 .visualize-it-button:hover {
   background-color: green;
+}
+.nav {
+  height: 100vh;
+  display: flex;
+}
+.border {
+  border: 2px solid lightgray;
 }
