@@ -1,13 +1,10 @@
-.board {
-  display: flex;
-  flex-direction: column;
+.information {
+  width: 800px;
+  height: 100px;
+  display: inline-block;
+  font-size: 16px;
 }
-.board___nodeContainer {
-  display: flex;
-  margin: auto;
-  width: 100vw;
-  justify-content: center;
-}
-.board__node {
-  cursor: pointer;
+
+.h3 {
+  font-weight: bold;
 }

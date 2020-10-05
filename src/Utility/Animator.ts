@@ -1,8 +1,8 @@
 import { IAnimator, INodeProperties } from "./interfaces";
 
 export default class Animator implements IAnimator {
-  visitedSpeed;
-  shortestSpeed;
+  visitedSpeed: number;
+  shortestSpeed: number;
   constructor() {
     this.visitedSpeed = 10;
     this.shortestSpeed = 50;
