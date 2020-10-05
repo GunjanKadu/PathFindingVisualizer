@@ -8,10 +8,6 @@ import Grid from "../../Utility/grid";
 import "./Visualizer.css";
 import {
   algo,
-  IBellMan,
-  IBFS,
-  IDFS,
-  IDijkstra,
   IGrid,
   INodeProperties,
   IVisualizerState,
@@ -19,7 +15,7 @@ import {
 import BellmanFord from "../../Utility/Algorithms/BellmanFord";
 import BFS from "../../Utility/Algorithms/BFS";
 import DFS from "../../Utility/Algorithms/DFS";
-import Dijkstra, { TDijsktra } from "../../Utility/Algorithms/Dijkstra";
+import Dijkstra from "../../Utility/Algorithms/Dijkstra";
 
 const DEFAULT_START: Array<number> = [9, 9];
 const DEFAULT_END: Array<number> = [9, 39];

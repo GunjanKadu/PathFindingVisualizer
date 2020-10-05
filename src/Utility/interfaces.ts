@@ -110,7 +110,7 @@ export interface INodeProps {
   row: number;
   isEnd: boolean;
   isStart: boolean;
-  isVisited: boolean;
+  isVisited?: boolean;
   isWall: boolean;
   mouseIsPressed: boolean | undefined;
   onMouseDown: (row: number, col: number) => void;
