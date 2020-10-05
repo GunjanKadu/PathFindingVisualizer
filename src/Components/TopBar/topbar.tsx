@@ -3,9 +3,8 @@ import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import "./topbar.css";
+import "./Header.css";
 import { IHeader } from "../../Utility/interfaces";
-import { ALGORITHM } from "../../Utility/constants";
 
 /*
 Controls menu for the pathfinding visualizer app.
@@ -22,55 +21,55 @@ export default class Header extends Component<IHeader, {}> {
               <NavDropdown
                 title="Algorithms"
                 id="basic-nav-dropdown"
-                // disabled={this.props.visualized}
+                disabled={this.props.visualized}
               >
                 <NavDropdown.Item
                   href="#dijkstra"
                   className="my-dropdown-item"
-                  onClick={() => this.props.changeAlgo(ALGORITHM.DIJKSTRA)}
+                  onClick={() => this.props.changeAlgo("Dijkstra")}
                 >
                   Djikstra's
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href="#bellman-ford"
                   className="my-dropdown-item"
-                  // onClick={() => this.props.changeAlgo("Bellman-Ford")}
+                  onClick={() => this.props.changeAlgo("Bellman-Ford")}
                 >
                   Bellman-Ford
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href="#bfs"
                   className="my-dropdown-item"
-                  // onClick={() => this.props.changeAlgo("BFS")}
+                  onClick={() => this.props.changeAlgo("BFS")}
                 >
                   BFS
                 </NavDropdown.Item>
                 <NavDropdown.Item
                   href="#dfs"
                   className="my-dropdown-item"
-                  // onClick={() => this.props.changeAlgo("DFS")}
+                  onClick={() => this.props.changeAlgo("DFS")}
                 >
                   DFS
                 </NavDropdown.Item>
               </NavDropdown>
               <Button
                 className="non-visualize-button"
-                // onClick={this.props.changeWeights}
-                // disabled={this.props.visualized}
+                onClick={this.props.changeWeights}
+                disabled={this.props.visualized}
               >
                 New Weights
               </Button>
               <Button
                 className="visualize-it-button"
-                onClick={this.props.startVisualizing}
-                disabled={this.props.visualize}
+                onClick={this.props.visualize}
+                disabled={this.props.visualized}
               >
                 Visualize It!
               </Button>
               <Button
                 className="non-visualize-button"
-                // onClick={this.props.clearBoard}
-                // disabled={this.props.visualized}
+                onClick={this.props.clearBoard}
+                disabled={this.props.visualized}
               >
                 Clear Board
               </Button>
@@ -78,13 +77,13 @@ export default class Header extends Component<IHeader, {}> {
                 title="Maze Algorithms"
                 id="basic-nav-dropdown"
                 className="my-dropdown"
-                // disabled={this.props.visualized}
+                disabled={this.props.visualized}
               >
                 <NavDropdown.Item
                   href="#random"
                   className="my-dropdown-item"
                   onClick={() => {
-                    // this.props.generateMaze("Random");
+                    this.props.generateMaze("Random");
                   }}
                 >
                   Random Walls
@@ -93,7 +92,7 @@ export default class Header extends Component<IHeader, {}> {
                   href="#recursive-division"
                   className="my-dropdown-item"
                   onClick={() => {
-                    // this.props.generateMaze("RecursiveDivision");
+                    this.props.generateMaze("RecursiveDivision");
                   }}
                 >
                   Recursive Division
@@ -103,13 +102,13 @@ export default class Header extends Component<IHeader, {}> {
                 title="Speed"
                 id="basic-nav-dropdown"
                 className="my-dropdown"
-                // disabled={this.props.visualized}
+                disabled={this.props.visualized}
               >
                 <NavDropdown.Item
                   href="#slow"
                   className="my-dropdown-item"
                   onClick={() => {
-                    // this.props.changeSpeed("Slow");
+                    this.props.changeSpeed("Slow");
                   }}
                 >
                   Slow
@@ -118,7 +117,7 @@ export default class Header extends Component<IHeader, {}> {
                   href="#average"
                   className="my-dropdown-item"
                   onClick={() => {
-                    // this.props.changeSpeed("Average");
+                    this.props.changeSpeed("Average");
                   }}
                 >
                   Average
@@ -127,7 +126,7 @@ export default class Header extends Component<IHeader, {}> {
                   href="#fast"
                   className="my-dropdown-item"
                   onClick={() => {
-                    // this.props.changeSpeed("Fast");
+                    this.props.changeSpeed("Fast");
                   }}
                 >
                   Fast
