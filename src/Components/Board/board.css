@@ -11,9 +11,9 @@
 .holder {
   display: flex;
 }
-.header {
-  flex: 0.2;
-}
+/* .header {
+  flex: 0.18;
+/* } */
 .body {
-  flex: 0.8;
+  flex: 1;
 }

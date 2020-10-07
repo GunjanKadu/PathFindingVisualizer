@@ -20,6 +20,7 @@ import DFS from "../../Utility/Algorithms/DFS";
 import Dijkstra from "../../Utility/Algorithms/Dijkstra";
 
 import "./board.css";
+import { DEFAULT_COLUMNS, DEFAULT_ROWS } from "../../Utility/constants";
 const DEFAULT_START: Array<number> = [9, 9];
 const DEFAULT_END: Array<number> = [9, 39];
 /*
@@ -216,8 +217,8 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
 
   unvisitNodes(removeWalls: boolean, start: Array<number>, end: Array<number>) {
     const { grid } = this.state;
-    for (let row = 0; row < 19; row++) {
-      for (let col = 0; col < 49; col++) {
+    for (let row = 0; row < DEFAULT_ROWS; row++) {
+      for (let col = 0; col < DEFAULT_COLUMNS; col++) {
         let node: INodeProperties | undefined = grid?.grid[row][col];
         if (node) {
           const newLocal = document.getElementById(
@@ -271,8 +272,8 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     if (start && algo && grid && end) {
       this.unvisitNodes(false, start, end);
       const newGrid = new Grid(algo.weighted, start, end);
-      for (let row = 0; row < 19; row++) {
-        for (let col = 0; col < 49; col++) {
+      for (let row = 0; row < DEFAULT_ROWS; row++) {
+        for (let col = 0; col < DEFAULT_COLUMNS; col++) {
           if (grid.grid[row][col].isWall) {
             newGrid.grid[row][col].isWall = true;
           }
@@ -285,8 +286,8 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
   /* Function to transfer wall locations from
  the previous grid to a new grid.*/
   keepWalls(grid: IGrid, newGrid: IGrid) {
-    for (let row = 0; row < 19; row++) {
-      for (let col = 0; col < 49; col++) {
+    for (let row = 0; row < DEFAULT_ROWS; row++) {
+      for (let col = 0; col < DEFAULT_COLUMNS; col++) {
         if (grid.grid[row][col].isWall) {
           newGrid.grid[row][col].isWall = true;
         }
