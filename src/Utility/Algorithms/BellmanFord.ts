@@ -1,3 +1,4 @@
+import { DEFAULT_COLUMNS, DEFAULT_ROWS } from "../constants";
 import { IBellMan, INodeProperties } from "../interfaces";
 import Finder from "./Finder";
 
@@ -22,14 +23,16 @@ export default class BellmanFord extends Finder implements IBellMan {
     startNode.previous = null;
     startNode.distance = 0;
     //visitedNodesInOrder.push(startNode);
-    let visited = Array(19 * 49).fill(false);
-    for (let i = 0; i < 19 * 49 - 1; i++) {
+    let visited = Array(DEFAULT_ROWS * DEFAULT_COLUMNS).fill(false);
+    for (let i = 0; i < DEFAULT_ROWS * DEFAULT_COLUMNS - 1; i++) {
       for (const node of nodes) {
         const neighbors = this.getUnvisitedNeighbors(node, grid);
         const { row, col } = node;
-        if (!visited[row * 49 + col] && neighbors.length > 0) {
+        if (!visited[row * DEFAULT_COLUMNS + col] && neighbors.length > 0) {
           visitedNodesInOrder.push(node);
-          visited[row * 49 + col] = !visited[row * 49 + col];
+          visited[row * DEFAULT_COLUMNS + col] = !visited[
+            row * DEFAULT_COLUMNS + col
+          ];
         }
         for (const neighbor of neighbors) {
           let newDistance = node.distance + neighbor.weight;

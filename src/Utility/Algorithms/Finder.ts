@@ -1,3 +1,4 @@
+import { DEFAULT_COLUMNS, DEFAULT_ROWS } from "../constants";
 import { IFinder, INodeProperties } from "../interfaces";
 
 /* Default class for other pathfinding algorithms to inherit from.*/
@@ -37,8 +38,8 @@ export default class Finder implements IFinder {
 
   getAllNodes(grid: Array<Array<INodeProperties>>): Array<INodeProperties> {
     const nodes = [];
-    for (let i = 0; i < 19; i++) {
-      for (let j = 0; j < 49; j++) {
+    for (let i = 0; i < DEFAULT_ROWS; i++) {
+      for (let j = 0; j < DEFAULT_COLUMNS; j++) {
         if (grid[i][j].isVisited || grid[i][j].isWall) continue;
         nodes.push(grid[i][j]);
       }
