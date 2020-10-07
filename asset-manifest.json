@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/PathFindingVisualizer/static/css/main.92d60564.chunk.css",
+    "main.js": "/PathFindingVisualizer/static/js/main.571e6662.chunk.js",
+    "main.js.map": "/PathFindingVisualizer/static/js/main.571e6662.chunk.js.map",
+    "runtime-main.js": "/PathFindingVisualizer/static/js/runtime-main.d7aa2a7d.js",
+    "runtime-main.js.map": "/PathFindingVisualizer/static/js/runtime-main.d7aa2a7d.js.map",
+    "static/css/2.d9ad5f5c.chunk.css": "/PathFindingVisualizer/static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.38eea1a4.chunk.js": "/PathFindingVisualizer/static/js/2.38eea1a4.chunk.js",
+    "static/js/2.38eea1a4.chunk.js.map": "/PathFindingVisualizer/static/js/2.38eea1a4.chunk.js.map",
+    "index.html": "/PathFindingVisualizer/index.html",
+    "precache-manifest.7b0d86ccc2fea57a546c707906e8b4b0.js": "/PathFindingVisualizer/precache-manifest.7b0d86ccc2fea57a546c707906e8b4b0.js",
+    "service-worker.js": "/PathFindingVisualizer/service-worker.js",
+    "static/css/2.d9ad5f5c.chunk.css.map": "/PathFindingVisualizer/static/css/2.d9ad5f5c.chunk.css.map",
+    "static/css/main.92d60564.chunk.css.map": "/PathFindingVisualizer/static/css/main.92d60564.chunk.css.map",
+    "static/js/2.38eea1a4.chunk.js.LICENSE.txt": "/PathFindingVisualizer/static/js/2.38eea1a4.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d7aa2a7d.js",
+    "static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.38eea1a4.chunk.js",
+    "static/css/main.92d60564.chunk.css",
+    "static/js/main.571e6662.chunk.js"
+  ]
+}
