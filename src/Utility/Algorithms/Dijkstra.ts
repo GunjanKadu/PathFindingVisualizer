@@ -6,7 +6,7 @@ import Pathfinder from "./Finder";
 
 export default class Dijkstra extends Pathfinder implements IDijkstra {
   static weighted = true;
-  static text = `Dijkstra's shortest path algorithm works on weighted graphs and
+  static text = `One algorithm for finding the shortest path from a starting node to a target node in a weighted graph is Dijkstra’s algorithm. The algorithm creates a tree of shortest paths from the starting vertex, the source, to all other points in the graph.Dijkstra's shortest path algorithm works on weighted graphs and
 guarantees the shortest path. This algorithm works similarly to breadth-first
 search in that it begins at the start node and then works it's way outward in
 all directions. As it works outwards it checks the edges (u,v,w) to see if

@@ -1,7 +1,7 @@
-export const DEFAULT_COLUMNS = 49;
-export const DEFAULT_ROWS = 19;
-export const DEFAULT_START = [8, 9];
-export const DEFAULT_END = [8, 39];
+export const DEFAULT_COLUMNS = 35;
+export const DEFAULT_ROWS = 13;
+export const DEFAULT_START = [6, 5];
+export const DEFAULT_END = [6, 29];
 export const ALGORITHM = {
   DIJKSTRA: "Dijkstra",
   BFS: "Bfs",

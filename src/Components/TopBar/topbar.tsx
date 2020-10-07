@@ -146,8 +146,11 @@ export default class Header extends Component<IHeader, {}> {
               </Button>
             </Nav>
           </Navbar.Collapse>
-          <Nav.Link href="https://github.com/GunjanKadu">
-            Made By : Gunjan Kadu <FavoriteTwoToneIcon />
+          <Nav.Link
+            href="https://github.com/GunjanKadu"
+            style={{ fontWeight: "bold" }}
+          >
+            Made with <FavoriteTwoToneIcon /> by : Gunjan Kadu
           </Nav.Link>
         </Navbar>
       </div>

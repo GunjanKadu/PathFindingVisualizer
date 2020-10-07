@@ -3,6 +3,9 @@
   height: 26px;
   border: 1px solid black;
   display: inline-block;
+  margin: 4px;
+  box-shadow: 2px 2px 2px gray;
+  cursor: pointer;
 }
 .node {
   width: 25px;
@@ -29,6 +32,7 @@
 
 .node-wall {
   background-color: black;
+  box-shadow: 2px 2px 2px gray;
 }
 
 .node-visited {

@@ -20,7 +20,7 @@ export function randomWalls(grid: IGrid) {
 /* The below methods are used to generate a maze with
 the recursive dvision method.*/
 export function recursiveDivision(grid: IGrid) {
-  addInnerWalls(grid, true, 1, 47, 1, 17);
+  addInnerWalls(grid, true, 1, DEFAULT_COLUMNS - 2, 1, DEFAULT_ROWS - 2);
   addOuterWalls(grid, DEFAULT_COLUMNS, DEFAULT_ROWS);
 }
 

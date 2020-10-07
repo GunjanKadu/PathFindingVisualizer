@@ -20,9 +20,13 @@ import DFS from "../../Utility/Algorithms/DFS";
 import Dijkstra from "../../Utility/Algorithms/Dijkstra";
 
 import "./board.css";
-import { DEFAULT_COLUMNS, DEFAULT_ROWS } from "../../Utility/constants";
-const DEFAULT_START: Array<number> = [9, 9];
-const DEFAULT_END: Array<number> = [9, 39];
+import {
+  DEFAULT_COLUMNS,
+  DEFAULT_END,
+  DEFAULT_ROWS,
+  DEFAULT_START,
+} from "../../Utility/constants";
+
 /*
 Visualizer component which controls much of the functionality of the app.
 */
@@ -337,8 +341,10 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
           ></Header>
         </div>
         <div className="body">
-          <h3>The current algorithm is {this.state.algoText}.</h3>
-          <div className="information">{algo?.text}</div>
+          <div className="information">
+            <h3>The current algorithm is {this.state.algoText}.</h3>
+            <p>{algo?.text}</p>
+          </div>
           <div className="board">
             {grid?.grid.map((row, rowIndex) => {
               return (

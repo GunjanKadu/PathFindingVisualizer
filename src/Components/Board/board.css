@@ -1,8 +1,10 @@
 .information {
   width: 800px;
-  height: 100px;
   display: inline-block;
   font-size: 16px;
+  height: fit-content;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
 }
 
 .h3 {
