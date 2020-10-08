@@ -1,3 +1,12 @@
+/**
+ *
+ * @Project :  ${PathFinding Visualizer(Path Finding Visualizer)}
+ * @CreatedBy ${Gunjan Kadu}
+ * @Email  ${agunjan.kadu@gmail.com}
+ * @Github https://github.com/GunjanKadu/
+ * @date   2020-09-10 23:47:40
+ *
+ */
 import React, { Component } from "react";
 import Header from "../TopBar/topbar";
 import Node from "../Node/node";
@@ -64,14 +73,12 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
         const { windowWidth, grid } = this.state;
         if (windowWidth && windowWidth < 1550 && windowWidth > 1330) {
           DefaultValues.setRoworColumn(30, "columns");
-          console.log("[6, 24]");
+
           DefaultValues.setStartOrEnd([6, 24], "end");
         } else if (windowWidth && windowWidth < 1330) {
           DefaultValues.setRoworColumn(25, "columns");
           DefaultValues.setStartOrEnd([6, 19], "end");
-          console.log("[6, 19]");
         } else {
-          console.log("Default");
           DefaultValues.DefaultColumns = 35;
         }
         grid?.initializeGrid(
@@ -306,8 +313,6 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
 
   newWeights() {
     const { grid, algo, start, end, visualized } = this.state;
-    console.log(start);
-    console.log(end);
     if (visualized) return;
     if (start && algo && grid && end) {
       this.unvisitNodes(false, start, end);
@@ -372,7 +377,7 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
         </div>
         <div className="body">
           <div className="information">
-            <h3>The current algorithm is {this.state.algoText}.</h3>
+            <h3>{this.state.algoText} Algorithm</h3>
             <p>{algo?.text}</p>
           </div>
           <div className="board">

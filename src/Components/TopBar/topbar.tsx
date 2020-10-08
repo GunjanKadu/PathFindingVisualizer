@@ -1,3 +1,12 @@
+/**
+ *
+ * @Project :  ${PathFinding Visualizer(Path Finding Visualizer)}
+ * @CreatedBy ${Gunjan Kadu}
+ * @Email  ${agunjan.kadu@gmail.com}
+ * @Github https://github.com/GunjanKadu/
+ * @date   2020-09-10 23:47:40
+ *
+ */
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
@@ -132,6 +141,7 @@ export default class Header extends Component<IHeader, {}> {
                 className="non-visualize-button"
                 onClick={this.props.clearBoard}
                 disabled={this.props.visualized}
+                style={{ marginBottom: "6vh" }}
               >
                 New Board
               </Button>

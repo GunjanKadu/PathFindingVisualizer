@@ -1,3 +1,12 @@
+/**
+ *
+ * @Project :  ${PathFinding Visualizer(Path Finding Visualizer)}
+ * @CreatedBy ${Gunjan Kadu}
+ * @Email  ${agunjan.kadu@gmail.com}
+ * @Github https://github.com/GunjanKadu/
+ * @date   2020-09-10 23:47:40
+ *
+ */
 import { DefaultValues } from "../constants";
 import { IBellMan, INodeProperties } from "../interfaces";
 import Finder from "./Finder";

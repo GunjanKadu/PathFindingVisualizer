@@ -1,9 +1,16 @@
+/**
+ *
+ * @Project :  ${PathFinding Visualizer(Path Finding Visualizer)}
+ * @CreatedBy ${Gunjan Kadu}
+ * @Email  ${agunjan.kadu@gmail.com}
+ * @Github https://github.com/GunjanKadu/
+ * @date   2020-09-10 23:47:40
+ *
+ */
 .node-box {
   width: calc(4.4375vh - 5px);
   height: calc(4.4375vh - 5px);
-  /* /  border: 1px solid black; */
   background-color: rgba(161, 166, 163, 0.6);
-
   display: inline-block;
   margin: 3px;
   box-shadow: 0 2px 0 #bbb;
@@ -108,4 +115,16 @@
     width: calc(4.4375vh - 10px);
     height: calc(4.4375vh - 10px);
   }
+}
+.alert {
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  top: 0;
+  right: 5px;
+  z-index: 10;
+}
+.infoNode {
+  font-size: 10px;
+  margin-bottom: 0px;
 }
