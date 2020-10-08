@@ -6,9 +6,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { IHeader } from "../../Utility/interfaces";
 import FavoriteTwoToneIcon from "@material-ui/icons/FavoriteTwoTone";
 import "./topbar.css";
-/*
-Controls menu for the pathfinding visualizer app.
-*/
+
 export default class Header extends Component<IHeader, {}> {
   render() {
     return (

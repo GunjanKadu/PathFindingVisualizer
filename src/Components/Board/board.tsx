@@ -22,9 +22,6 @@ import Dijkstra from "../../Utility/Algorithms/Dijkstra";
 import "./board.css";
 import { DefaultValues } from "../../Utility/constants";
 
-/*
-Visualizer component which controls much of the functionality of the app.
-*/
 export default class Visualizer extends Component<{}, IVisualizerState> {
   constructor(props: any) {
     super(props);
@@ -65,12 +62,16 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
       },
       () => {
         const { windowWidth, grid } = this.state;
-        console.log(windowWidth);
         if (windowWidth && windowWidth < 1550 && windowWidth > 1330) {
           DefaultValues.setRoworColumn(30, "columns");
+          console.log("[6, 24]");
+          DefaultValues.setStartOrEnd([6, 24], "end");
         } else if (windowWidth && windowWidth < 1330) {
           DefaultValues.setRoworColumn(25, "columns");
+          DefaultValues.setStartOrEnd([6, 19], "end");
+          console.log("[6, 19]");
         } else {
+          console.log("Default");
           DefaultValues.DefaultColumns = 35;
         }
         grid?.initializeGrid(
@@ -78,7 +79,11 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
           DefaultValues.DEFAULT_START,
           DefaultValues.DEFAULT_END
         );
-        this.setState({ grid: grid });
+        this.setState({
+          grid: grid,
+          start: DefaultValues.DEFAULT_START,
+          end: DefaultValues.DEFAULT_END,
+        });
       }
     );
   }
@@ -301,11 +306,13 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
 
   newWeights() {
     const { grid, algo, start, end, visualized } = this.state;
+    console.log(start);
+    console.log(end);
     if (visualized) return;
     if (start && algo && grid && end) {
       this.unvisitNodes(false, start, end);
       const newGrid = new Grid(algo.weighted, start, end);
-      grid.initializeGrid(algo.weighted, start, end);
+      newGrid.initializeGrid(algo.weighted, start, end);
       for (let row = 0; row < DefaultValues.DefaultRows; row++) {
         for (let col = 0; col < DefaultValues.DefaultColumns; col++) {
           if (grid.grid[row][col].isWall) {

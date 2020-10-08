@@ -1,13 +1,9 @@
 import { DefaultValues } from "./constants";
 import { IGrid, INodeProperties } from "./interfaces";
 
-/*
-Grid class for storing the graph and the nodes therein.
-*/
 export default class Grid implements IGrid {
   grid: Array<Array<INodeProperties>>;
   constructor(weighted: boolean, start: Array<number>, end: Array<number>) {
-    // this.grid = this.initializeGrid(weighted, start, end);
     this.grid = [];
   }
 

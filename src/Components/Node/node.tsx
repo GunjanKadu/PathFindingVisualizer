@@ -3,9 +3,6 @@ import { INodeProps } from "../../Utility/interfaces";
 
 import "./node.css";
 
-/*
-React compoenent used to represent the Nodes in the generated page.
-*/
 export default class Node extends Component<INodeProps, {}> {
   nodeType = (node: INodeProps): string => {
     const type = node.isEnd

@@ -1,6 +1,6 @@
 import { IBFS, INodeProperties } from "../interfaces";
 import Finder from "./Finder";
-/* Class for Breadth-first-search */
+
 export default class BFS extends Finder implements IBFS {
   static weighted = false;
   static text = `Breadth-first search works on unweighted graphs and

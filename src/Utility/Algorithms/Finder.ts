@@ -1,15 +1,12 @@
 import { DefaultValues } from "../constants";
 import { IFinder, INodeProperties } from "../interfaces";
 
-/* Default class for other pathfinding algorithms to inherit from.*/
 export default class Finder implements IFinder {
   static _time = 12.5;
   getUnvisitedNeighbors(
     node: INodeProperties,
     grid: Array<Array<INodeProperties>>
   ): Array<INodeProperties> {
-    /* Get the unvisited neighbors of
-    node which are not walls.*/
     let neighbors = [];
     const { col, row } = node;
     if (row > 0) neighbors.push(grid[row - 1][col]);
@@ -24,8 +21,6 @@ export default class Finder implements IFinder {
     startNode: INodeProperties,
     endNode: INodeProperties
   ): Array<INodeProperties> {
-    /* Backtrack from the endNode to the
-      startNode to get the shortest path */
     const shortestPath = [];
     let currentNode = endNode;
     while (currentNode !== null && currentNode !== startNode) {

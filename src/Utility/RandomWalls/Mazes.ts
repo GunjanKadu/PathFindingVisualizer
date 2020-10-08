@@ -1,7 +1,6 @@
 import { DefaultValues } from "../constants";
 import { IGrid } from "../interfaces";
 
-/* Generates a maze of random walls. */
 export function randomWalls(grid: IGrid) {
   for (let row = 0; row < DefaultValues.DefaultRows; row++) {
     for (let col = 0; col < DefaultValues.DefaultColumns; col++) {
@@ -17,8 +16,6 @@ export function randomWalls(grid: IGrid) {
   }
 }
 
-/* The below methods are used to generate a maze with
-the recursive dvision method.*/
 export function recursiveDivision(grid: IGrid) {
   addInnerWalls(
     grid,

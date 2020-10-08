@@ -1,7 +1,5 @@
 import { IDijkstra, INodeProperties } from "../interfaces";
-/*
-Implementation of Dijkstra's algorithm in JavaScript.
-*/
+
 import Pathfinder from "./Finder";
 
 export default class Dijkstra extends Pathfinder implements IDijkstra {
