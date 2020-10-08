@@ -1,5 +1,3 @@
-export const DEFAULT_COLUMNS = 35;
-export const DEFAULT_ROWS = 13;
 export const DEFAULT_START = [6, 5];
 export const DEFAULT_END = [6, 29];
 export const ALGORITHM = {
@@ -14,3 +12,12 @@ export const uuidv4 = (): string => {
     return v.toString(16);
   });
 };
+export class DefaultRowsAndColums {
+  static DefaultRows: number = 13;
+  static DefaultColumns: number = 35;
+
+  static setRoworColumn(value: number, type: string) {
+    if (type === "rows") DefaultRowsAndColums.DefaultRows = value;
+    if (type === "columns") DefaultRowsAndColums.DefaultColumns = value;
+  }
+}

@@ -21,9 +21,8 @@ import Dijkstra from "../../Utility/Algorithms/Dijkstra";
 
 import "./board.css";
 import {
-  DEFAULT_COLUMNS,
+  DefaultRowsAndColums,
   DEFAULT_END,
-  DEFAULT_ROWS,
   DEFAULT_START,
 } from "../../Utility/constants";
 
@@ -46,6 +45,8 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
       end: DEFAULT_END,
       movingStart: false,
       movingEnd: false,
+      windowHeight: null,
+      windowWidth: null,
     };
 
     this.visualize = this.visualize.bind(this);
@@ -56,11 +57,27 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     this.generateMaze = this.generateMaze.bind(this);
   }
 
-  /*
-  The handleMouseXxxx functions handle the
-  modifying of nodes to become walls and also
-  the moving of the start and ending nodes.
-  */
+  componentWillMount() {
+    this.setState(
+      {
+        windowHeight: window.innerHeight,
+        windowWidth: window.innerWidth,
+      },
+      () => {
+        const { windowWidth, grid } = this.state;
+        console.log(windowWidth);
+        if (windowWidth && windowWidth < 1330) {
+          DefaultRowsAndColums.DefaultColumns = 25;
+        } else if (windowWidth && windowWidth < 1550) {
+          DefaultRowsAndColums.DefaultColumns = 30;
+        } else {
+          DefaultRowsAndColums.DefaultColumns = 35;
+        }
+        grid?.initializeGrid(Dijkstra.weighted, DEFAULT_START, DEFAULT_END);
+        this.setState({ grid: grid });
+      }
+    );
+  }
   handleMouseDown(row: number, col: number) {
     const { grid, start, end, visualized } = this.state;
     if (visualized) return;
@@ -118,7 +135,6 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     });
   }
 
-  /* Handles the selection of algorithms.*/
   algoChange(text: string) {
     const { grid, start, end, visualized } = this.state;
     if (visualized) return;
@@ -135,21 +151,29 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
           algo.newAlgo = Dijkstra;
           algo.newAlgoText = "Dijkstra's";
           algo.newGrid = new Grid(Dijkstra.weighted, start, end);
+          algo.newGrid.initializeGrid(true, start, end);
+
           break;
         case "BFS":
           algo.newAlgo = BFS;
           algo.newAlgoText = "Breadth-First Search";
           algo.newGrid = new Grid(BFS.weighted, start, end);
+          algo.newGrid.initializeGrid(false, start, end);
+
           break;
         case "DFS":
           algo.newAlgo = DFS;
           algo.newAlgoText = "Depth-First Search";
           algo.newGrid = new Grid(DFS.weighted, start, end);
+          algo.newGrid.initializeGrid(false, start, end);
+
           break;
         case "Bellman-Ford":
           algo.newAlgo = BellmanFord;
           algo.newAlgoText = "Bellman-Ford";
           algo.newGrid = new Grid(BellmanFord.weighted, start, end);
+          algo.newGrid.initializeGrid(true, start, end);
+
           break;
         default:
           return;
@@ -163,8 +187,6 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     }
   }
 
-  /* Handles the speed selection updating.
-  This feature is currently not implemented.*/
   speedChange(text: string) {
     const speeds: {
       visitedSpeed: number | null;
@@ -189,7 +211,6 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     this.state.animator?.updateSpeed(speeds.visitedSpeed, speeds.shortestSpeed);
   }
 
-  /* Runs the process of visualizing the algorithm.*/
   visualize() {
     const { grid, algo, visualized, start, end, animator } = this.state;
     if (visualized) return;
@@ -221,8 +242,8 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
 
   unvisitNodes(removeWalls: boolean, start: Array<number>, end: Array<number>) {
     const { grid } = this.state;
-    for (let row = 0; row < DEFAULT_ROWS; row++) {
-      for (let col = 0; col < DEFAULT_COLUMNS; col++) {
+    for (let row = 0; row < DefaultRowsAndColums.DefaultRows; row++) {
+      for (let col = 0; col < DefaultRowsAndColums.DefaultColumns; col++) {
         let node: INodeProperties | undefined = grid?.grid[row][col];
         if (node) {
           const newLocal = document.getElementById(
@@ -260,8 +281,6 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     this.setState({ grid: grid, visualized: false });
   }
 
-  /* Resets the nodes back to default state if removeWalls === true.
-  If removeWalls === false, then walls are kept in place.*/
   clearBoard() {
     const { visualized } = this.state;
     if (visualized) return;
@@ -269,15 +288,15 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     this.setState({ start: DEFAULT_START, end: DEFAULT_END });
   }
 
-  /* Creates a new Grid object with new weights.*/
   newWeights() {
     const { grid, algo, start, end, visualized } = this.state;
     if (visualized) return;
     if (start && algo && grid && end) {
       this.unvisitNodes(false, start, end);
       const newGrid = new Grid(algo.weighted, start, end);
-      for (let row = 0; row < DEFAULT_ROWS; row++) {
-        for (let col = 0; col < DEFAULT_COLUMNS; col++) {
+      grid.initializeGrid(algo.weighted, start, end);
+      for (let row = 0; row < DefaultRowsAndColums.DefaultRows; row++) {
+        for (let col = 0; col < DefaultRowsAndColums.DefaultColumns; col++) {
           if (grid.grid[row][col].isWall) {
             newGrid.grid[row][col].isWall = true;
           }
@@ -287,11 +306,9 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     }
   }
 
-  /* Function to transfer wall locations from
- the previous grid to a new grid.*/
   keepWalls(grid: IGrid, newGrid: IGrid) {
-    for (let row = 0; row < DEFAULT_ROWS; row++) {
-      for (let col = 0; col < DEFAULT_COLUMNS; col++) {
+    for (let row = 0; row < DefaultRowsAndColums.DefaultRows; row++) {
+      for (let col = 0; col < DefaultRowsAndColums.DefaultColumns; col++) {
         if (grid.grid[row][col].isWall) {
           newGrid.grid[row][col].isWall = true;
         }
@@ -300,7 +317,6 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
     return newGrid;
   }
 
-  /* Handles the generation of implemented mazes.*/
   generateMaze(type: string) {
     const { grid, start, end } = this.state;
     if (grid && start && end) {
@@ -316,11 +332,7 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
           return;
       }
       this.setState({ grid: grid });
-      /*
-      For some reason the following line is needed to
-      actually render things correctly if you try and
-      generate two mazes without doing some other action.
-      */
+
       this.unvisitNodes(false, start, end);
     }
   }

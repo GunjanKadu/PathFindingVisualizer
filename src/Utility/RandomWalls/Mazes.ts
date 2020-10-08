@@ -1,10 +1,10 @@
-import { DEFAULT_COLUMNS, DEFAULT_ROWS } from "../constants";
+import { DefaultRowsAndColums } from "../constants";
 import { IGrid } from "../interfaces";
 
 /* Generates a maze of random walls. */
 export function randomWalls(grid: IGrid) {
-  for (let row = 0; row < DEFAULT_ROWS; row++) {
-    for (let col = 0; col < DEFAULT_COLUMNS; col++) {
+  for (let row = 0; row < DefaultRowsAndColums.DefaultRows; row++) {
+    for (let col = 0; col < DefaultRowsAndColums.DefaultColumns; col++) {
       let decider = Math.random();
       if (
         (decider <= 0.1 || decider >= 0.85) &&
@@ -20,8 +20,19 @@ export function randomWalls(grid: IGrid) {
 /* The below methods are used to generate a maze with
 the recursive dvision method.*/
 export function recursiveDivision(grid: IGrid) {
-  addInnerWalls(grid, true, 1, DEFAULT_COLUMNS - 2, 1, DEFAULT_ROWS - 2);
-  addOuterWalls(grid, DEFAULT_COLUMNS, DEFAULT_ROWS);
+  addInnerWalls(
+    grid,
+    true,
+    1,
+    DefaultRowsAndColums.DefaultColumns - 2,
+    1,
+    DefaultRowsAndColums.DefaultRows - 2
+  );
+  addOuterWalls(
+    grid,
+    DefaultRowsAndColums.DefaultColumns,
+    DefaultRowsAndColums.DefaultRows
+  );
 }
 
 function addOuterWalls(grid: IGrid, width: number, height: number) {

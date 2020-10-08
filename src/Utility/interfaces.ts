@@ -134,5 +134,7 @@ export interface IVisualizerState {
   end?: Array<number>;
   movingStart?: boolean;
   movingEnd?: boolean;
+  windowHeight?: number | null;
+  windowWidth?: number | null;
 }
 export type algo = TDijsktra | TBFS | TDFS | TBellmanFord;

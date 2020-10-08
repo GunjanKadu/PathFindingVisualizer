@@ -1,4 +1,4 @@
-import { DEFAULT_COLUMNS, DEFAULT_ROWS } from "./constants";
+import { DefaultRowsAndColums } from "./constants";
 import { IGrid, INodeProperties } from "./interfaces";
 
 /*
@@ -7,7 +7,8 @@ Grid class for storing the graph and the nodes therein.
 export default class Grid implements IGrid {
   grid: Array<Array<INodeProperties>>;
   constructor(weighted: boolean, start: Array<number>, end: Array<number>) {
-    this.grid = this.initializeGrid(weighted, start, end);
+    // this.grid = this.initializeGrid(weighted, start, end);
+    this.grid = [];
   }
 
   initializeNode(
@@ -40,13 +41,14 @@ export default class Grid implements IGrid {
     end: Array<number>
   ): Array<Array<INodeProperties>> {
     const grid: Array<Array<INodeProperties>> = [];
-    for (let row = 0; row < DEFAULT_ROWS; row++) {
+    for (let row = 0; row < DefaultRowsAndColums.DefaultRows; row++) {
       const newRow = [];
-      for (let col = 0; col < DEFAULT_COLUMNS; col++) {
+      for (let col = 0; col < DefaultRowsAndColums.DefaultColumns; col++) {
         newRow.push(this.initializeNode(row, col, weighted, start, end));
       }
       grid.push(newRow);
     }
+    this.grid = grid;
     return grid;
   }
 

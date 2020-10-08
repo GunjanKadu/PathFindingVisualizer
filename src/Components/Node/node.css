@@ -84,3 +84,28 @@
     background-color: yellow;
   }
 }
+@media only screen and (max-width: 1650px) {
+  .node-box {
+    width: calc(4.4375vh - 10px);
+    height: calc(4.4375vh - 10px);
+  }
+  .node {
+    width: calc(4.4375vh - 10px);
+    height: calc(4.4375vh - 10px);
+  }
+
+  .node-start {
+    width: calc(4.4375vh - 10px);
+    height: calc(4.4375vh - 10px);
+  }
+
+  .node-end {
+    width: calc(4.4375vh - 10px);
+    height: calc(4.4375vh - 10px);
+  }
+
+  .node-wall {
+    width: calc(4.4375vh - 10px);
+    height: calc(4.4375vh - 10px);
+  }
+}
