@@ -1,4 +1,4 @@
-import { DefaultRowsAndColums } from "./constants";
+import { DefaultValues } from "./constants";
 import { IGrid, INodeProperties } from "./interfaces";
 
 /*
@@ -41,9 +41,9 @@ export default class Grid implements IGrid {
     end: Array<number>
   ): Array<Array<INodeProperties>> {
     const grid: Array<Array<INodeProperties>> = [];
-    for (let row = 0; row < DefaultRowsAndColums.DefaultRows; row++) {
+    for (let row = 0; row < DefaultValues.DefaultRows; row++) {
       const newRow = [];
-      for (let col = 0; col < DefaultRowsAndColums.DefaultColumns; col++) {
+      for (let col = 0; col < DefaultValues.DefaultColumns; col++) {
         newRow.push(this.initializeNode(row, col, weighted, start, end));
       }
       grid.push(newRow);

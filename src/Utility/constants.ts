@@ -1,5 +1,3 @@
-export const DEFAULT_START = [6, 5];
-export const DEFAULT_END = [6, 29];
 export const ALGORITHM = {
   DIJKSTRA: "Dijkstra",
   BFS: "Bfs",
@@ -12,12 +10,19 @@ export const uuidv4 = (): string => {
     return v.toString(16);
   });
 };
-export class DefaultRowsAndColums {
+export class DefaultValues {
   static DefaultRows: number = 13;
   static DefaultColumns: number = 35;
+  static DEFAULT_START = [6, 5];
+  static DEFAULT_END = [6, 29];
 
   static setRoworColumn(value: number, type: string) {
-    if (type === "rows") DefaultRowsAndColums.DefaultRows = value;
-    if (type === "columns") DefaultRowsAndColums.DefaultColumns = value;
+    if (type === "rows") DefaultValues.DefaultRows = value;
+    if (type === "columns") DefaultValues.DefaultColumns = value;
+  }
+
+  static setStartOrEnd(value: Array<number>, type: string) {
+    if (type === "start") DefaultValues.DEFAULT_START = value;
+    if (type === "end") DefaultValues.DEFAULT_END = value;
   }
 }
