@@ -84,7 +84,7 @@ export interface IDFS {
     endNode: INodeProperties
   ) => Array<INodeProperties> | undefined;
 }
-export interface IHeader {
+export interface IHeaderProps {
   changeAlgo: (value: string) => void;
   changeSpeed: (value: string) => void;
   changeWeights: () => void;
@@ -92,6 +92,11 @@ export interface IHeader {
   generateMaze: (value: string) => void;
   visualize: () => void;
   visualized: boolean | undefined;
+}
+export interface IHeaderState {
+  speedValue: string;
+  algoValue: string;
+  mazeValue: string;
 }
 export interface IAnimator {
   visitedSpeed: number;

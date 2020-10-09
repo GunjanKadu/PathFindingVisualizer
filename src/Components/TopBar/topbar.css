@@ -12,7 +12,32 @@
   font-size: 15px;
   font-weight: bold;
 }
+.selectorMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.selectorMenu select {
+  height: 100%;
+  width: 208px;
 
+  border-radius: none;
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: oc-indigo-5;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 5px;
+  padding-left: 10px;
+}
+.nav__navContainer {
+  display: flex;
+  justify-content: space-between;
+}
 .my-dropdown-item {
   color: black;
   background-color: white;
@@ -65,4 +90,16 @@
 }
 .border {
   border: 2px solid lightgray;
+}
+.how-to-use-button {
+  background-color: #007bff !important;
+  color: white;
+  border: none;
+
+  font-size: 15px;
+  font-family: Arial;
+  font-weight: bold;
+}
+.how-to-use-button:hover {
+  color: white;
 }

@@ -34,7 +34,6 @@ import { DefaultValues } from "../../Utility/constants";
 export default class Visualizer extends Component<{}, IVisualizerState> {
   constructor(props: any) {
     super(props);
-
     this.state = {
       algo: Dijkstra,
       algoText: "Dijkstra's",

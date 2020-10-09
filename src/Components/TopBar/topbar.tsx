@@ -11,12 +11,37 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { IHeader } from "../../Utility/interfaces";
-import FavoriteTwoToneIcon from "@material-ui/icons/FavoriteTwoTone";
+import { IHeaderProps, IHeaderState } from "../../Utility/interfaces";
+import GitHubIcon from "@material-ui/icons/GitHub";
 import "./topbar.css";
 
-export default class Header extends Component<IHeader, {}> {
+export default class Header extends Component<IHeaderProps, IHeaderState> {
+  constructor(props: IHeaderProps) {
+    super(props);
+    this.state = {
+      speedValue: "Fast",
+      algoValue: "Dijkstra",
+      mazeValue: "No Maze",
+    };
+  }
+  onSpeedChangeHandler = (e: any) => {
+    if (e.target && e.target.value) {
+      this.props.changeSpeed(e.target.value);
+      this.setState({ speedValue: e.target.value });
+    }
+  };
+  onAlgoChangeHandler = (e: any) => {
+    if (e.target && e.target.value) {
+      this.props.changeAlgo(e.target.value);
+      this.setState({ algoValue: e.target.value });
+    }
+  };
+  onMazeChangeHandler = (e: any) => {
+    if (e.target && e.target.value) {
+      this.props.generateMaze(e.target.value);
+      this.setState({ mazeValue: e.target.value });
+    }
+  };
   render() {
     return (
       <div className="nav">
@@ -24,139 +49,94 @@ export default class Header extends Component<IHeader, {}> {
           expand="lg"
           bg="light"
           variant="light"
-          className="flex-column border"
+          className="flex-column border nav__navContainer"
         >
           <Navbar.Brand
             href="."
-            style={{ color: "darkslategray", fontWeight: "bold" }}
+            style={{
+              fontWeight: "bold",
+              marginRight: "0px",
+            }}
           >
-            Pathfinding Visualizer
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto flex-column">
-              <NavDropdown
-                title="Algorithms"
-                id="basic-nav-dropdown"
-                disabled={this.props.visualized}
-              >
-                <NavDropdown.Item
-                  href="#dijkstra"
-                  className="my-dropdown-item"
-                  onClick={() => this.props.changeAlgo("Dijkstra")}
-                >
-                  Djikstra's
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  href="#bellman-ford"
-                  className="my-dropdown-item"
-                  onClick={() => this.props.changeAlgo("Bellman-Ford")}
-                >
-                  Bellman-Ford
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  href="#bfs"
-                  className="my-dropdown-item"
-                  onClick={() => this.props.changeAlgo("BFS")}
-                >
-                  BFS
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  href="#dfs"
-                  className="my-dropdown-item"
-                  onClick={() => this.props.changeAlgo("DFS")}
-                >
-                  DFS
-                </NavDropdown.Item>
-              </NavDropdown>
+            PATHFINDING VISUALIZER
+          </Navbar.Brand>{" "}
+          <div className="selectorMenu">
+            <Button
+              className="non-visualize-button"
+              onClick={this.props.changeWeights}
+              disabled={this.props.visualized}
+            >
+              New Weights
+            </Button>
+            <Button
+              className="non-visualize-button"
+              onClick={this.props.clearBoard}
+              disabled={this.props.visualized}
+              style={{ marginBottom: "6vh" }}
+            >
+              New Board
+            </Button>
+            <select
+              disabled={this.props.visualized}
+              onChange={this.onSpeedChangeHandler}
+              value={this.state.speedValue}
+            >
+              <option value="Slow">Slow</option>
+              <option value="Average">Average</option>
+              <option value="Fast">Fast</option>
+            </select>
+            <select
+              disabled={this.props.visualized}
+              onChange={this.onAlgoChangeHandler}
+              value={this.state.algoValue}
+            >
+              <option value="Dijkstra">Dijkstra</option>
+              <option value="Bellman-Ford">Bellman-Ford</option>
+              <option value="BFS">BFS</option>
+              <option value="DFS">DFS</option>
+            </select>
 
-              <NavDropdown
-                title="Maze Algorithms"
-                id="basic-nav-dropdown"
-                className="my-dropdown"
-                disabled={this.props.visualized}
-              >
-                <NavDropdown.Item
-                  href="#random"
-                  className="my-dropdown-item"
-                  onClick={() => {
-                    this.props.generateMaze("Random");
-                  }}
-                >
-                  Random Walls
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  href="#recursive-division"
-                  className="my-dropdown-item"
-                  onClick={() => {
-                    this.props.generateMaze("RecursiveDivision");
-                  }}
-                >
-                  Recursive Division
-                </NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown
-                title="Speed"
-                id="basic-nav-dropdown"
-                className="my-dropdown"
-                disabled={this.props.visualized}
-              >
-                <NavDropdown.Item
-                  href="#slow"
-                  className="my-dropdown-item"
-                  onClick={() => {
-                    this.props.changeSpeed("Slow");
-                  }}
-                >
-                  Slow
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  href="#average"
-                  className="my-dropdown-item"
-                  onClick={() => {
-                    this.props.changeSpeed("Average");
-                  }}
-                >
-                  Average
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                  href="#fast"
-                  className="my-dropdown-item"
-                  onClick={() => {
-                    this.props.changeSpeed("Fast");
-                  }}
-                >
-                  Fast
-                </NavDropdown.Item>
-              </NavDropdown>
-              <Button
-                className="non-visualize-button"
-                onClick={this.props.changeWeights}
-                disabled={this.props.visualized}
-              >
-                New Weights
-              </Button>
+            <select
+              disabled={this.props.visualized}
+              onChange={this.onMazeChangeHandler}
+              value={this.state.mazeValue}
+            >
+              <option value="None">No Maze</option>
+              <option value="Random">Random</option>
+              <option value="RecursiveDivision">RecursiveDivision</option>
+            </select>
 
-              <Button
-                className="non-visualize-button"
-                onClick={this.props.clearBoard}
-                disabled={this.props.visualized}
-                style={{ marginBottom: "6vh" }}
+            <Button
+              className="visualize-it-button"
+              onClick={this.props.visualize}
+              disabled={this.props.visualized}
+            >
+              Visualize
+            </Button>
+          </div>
+          <div className="nav__footer">
+            <Button
+              className="how-to-use-button"
+              disabled={this.props.visualized}
+            >
+              How To Use?
+            </Button>
+            <Nav.Link href="https://github.com/GunjanKadu">
+              <span
+                style={{
+                  color: "black",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                }}
               >
-                New Board
-              </Button>
-              <Button
-                className="visualize-it-button"
-                onClick={this.props.visualize}
-                disabled={this.props.visualized}
-              >
-                Visualize
-              </Button>
-            </Nav>
-          </Navbar.Collapse>
-          <Nav.Link href="https://github.com/GunjanKadu">
-            Made with <FavoriteTwoToneIcon /> by : Gunjan Kadu
-          </Nav.Link>
+                <span style={{ marginRight: "7px" }}>Made by Gunjan Kadu</span>
+                <span>
+                  <GitHubIcon />
+                </span>
+              </span>
+            </Nav.Link>
+          </div>
         </Navbar>
       </div>
     );
