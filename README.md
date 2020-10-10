@@ -6,11 +6,11 @@
   
 
 <h2 align="center">Algorithms Included</h2>
-
-                                                            Dijkstra
-                                                            Bellman-Ford
-                                                            DFS
-                                                            0-1 BFS
+<p>* Dijkstra</p>
+<p>* Bellman-Ford</p>
+<p>* DFS</p>
+<p>* 0-1 BFS</p>
+                                                       
 
 
 ## Made Using
@@ -20,5 +20,15 @@
 - [CSS Animations] - Animation Effect
 
 
+<br>
 
-<p align="center">It is created with React,Redux,Electron and TypeScript with Firebase providing real time function and updates.</p>
+## Build Guide
+
+```bash
+git clone https://github.com/GunjanKadu/PathFindingVisualizer.git
+cd Pathfinding-Visualizer
+yarn install
+yarn start
+```
+
+<br>
