@@ -1,9 +1,8 @@
 <h1 align="center">Path Finding Visualizer</h1>
 
 <p align="center">Live at - https://gunjankadu.github.io/PathFindingVisualizer/ </p>
-<br/>
 <p align="center"> This project is live visualiztion of the famous path finding algorithms. </p>
-  
+<br/>
 
 <h2 align="center">Algorithms Included</h2>
 <li>* Dijkstra</li>
