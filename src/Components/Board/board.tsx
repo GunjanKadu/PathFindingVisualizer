@@ -11,7 +11,6 @@ import React, { Component } from "react";
 import Header from "../TopBar/topbar";
 import Node from "../Node/node";
 import Animator from "../../Utility/Animator";
-
 import {
   randomWalls,
   recursiveDivision,

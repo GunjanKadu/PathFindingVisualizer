@@ -97,6 +97,7 @@ export interface IHeaderState {
   speedValue: string;
   algoValue: string;
   mazeValue: string;
+  showHelpModal: boolean;
 }
 export interface IAnimator {
   visitedSpeed: number;
@@ -151,4 +152,10 @@ export interface IVisualizerState {
   windowHeight?: number | null;
   windowWidth?: number | null;
 }
+
+export interface IHelpModalProps {
+  showModal: boolean;
+  toggleShowModal: () => void;
+}
+
 export type algo = TDijsktra | TBFS | TDFS | TBellmanFord;

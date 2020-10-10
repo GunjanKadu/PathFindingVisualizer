@@ -11,6 +11,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import HelpModal from "../HelpModal/helpModal";
 import { IHeaderProps, IHeaderState } from "../../Utility/interfaces";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import "./topbar.css";
@@ -22,6 +23,7 @@ export default class Header extends Component<IHeaderProps, IHeaderState> {
       speedValue: "Fast",
       algoValue: "Dijkstra",
       mazeValue: "No Maze",
+      showHelpModal: false,
     };
   }
   onSpeedChangeHandler = (e: any) => {
@@ -42,9 +44,18 @@ export default class Header extends Component<IHeaderProps, IHeaderState> {
       this.setState({ mazeValue: e.target.value });
     }
   };
+  toggleShowModal = () => {
+    this.setState({ showHelpModal: !this.state.showHelpModal });
+  };
   render() {
     return (
       <div className="nav">
+        <div className="helpModal">
+          <HelpModal
+            showModal={this.state.showHelpModal}
+            toggleShowModal={this.toggleShowModal}
+          />
+        </div>
         <Navbar
           expand="lg"
           bg="light"
@@ -117,6 +128,9 @@ export default class Header extends Component<IHeaderProps, IHeaderState> {
             <Button
               className="how-to-use-button"
               disabled={this.props.visualized}
+              onClick={() =>
+                this.setState({ showHelpModal: !this.state.showHelpModal })
+              }
             >
               How To Use?
             </Button>
