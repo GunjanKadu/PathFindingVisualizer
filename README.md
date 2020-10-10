@@ -6,10 +6,10 @@
   
 
 <h2 align="center">Algorithms Included</h2>
-<p>* Dijkstra</p>
-<p>* Bellman-Ford</p>
-<p>* DFS</p>
-<p>* 0-1 BFS</p>
+<li>* Dijkstra</li>
+<li>* Bellman-Ford</li>
+<li>* DFS</li>
+<li>* 0-1 BFS</li>
                                                        
 
 
@@ -18,7 +18,6 @@
 - [React](https://github.com/facebook/react)
 - [TypeScript](https://github.com/microsoft/TypeScript) - Strongly Typed No JS
 - [CSS Animations] - Animation Effect
-
 
 <br>
 
