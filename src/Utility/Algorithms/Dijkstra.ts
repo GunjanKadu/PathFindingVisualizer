@@ -13,13 +13,8 @@ import Pathfinder from "./Finder";
 
 export default class Dijkstra extends Pathfinder implements IDijkstra {
   static weighted = true;
-  static text = `One algorithm for finding the shortest path from a starting node to a target node in a weighted graph is Dijkstra’s algorithm. The algorithm creates a tree of shortest paths from the starting vertex, the source, to all other points in the graph.Dijkstra's shortest path algorithm works on weighted graphs and
-guarantees the shortest path. This algorithm works similarly to breadth-first
-search in that it begins at the start node and then works it's way outward in
-all directions. As it works outwards it checks the edges (u,v,w) to see if
-u.distance + w is less than v.distance. If so it updates v.distance to hold
-u.distance + w. It continues this process until no more nodes can be visited,
-or until the destination node is found.`;
+  static text = `Dijkstra's Algorithm works on the basis that any subpath B -> D of the shortest path A -> D between vertices A and D is also the shortest path between vertices B and D.Djikstra used this property in the opposite direction i.e we overestimate the distance of each vertex from the starting vertex. Then we visit each node and its neighbors to find the shortest subpath to those neighbors.
+The algorithm uses a greedy approach in the sense that we find the next best solution hoping that the end result is the best solution for the whole problem.`;
 
   traverse(
     grid: Array<Array<INodeProperties>>,
