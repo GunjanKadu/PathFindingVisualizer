@@ -59,8 +59,10 @@ export default function Example(props: IHelpModalProps) {
             </div>
 
             <div className="info">
-              <p>1. YOU CAN MAKE WALL BY CLICKING AND BLOCK</p>
-              <p>
+              <div className="info__info">
+                1. YOU CAN MAKE WALL BY CLICKING AND BLOCK
+              </div>
+              <div className="info__info">
                 2. YOU CAN MOVE{" "}
                 <div
                   style={{
@@ -72,8 +74,10 @@ export default function Example(props: IHelpModalProps) {
                   }}
                 ></div>{" "}
                 BY DRAGGING{" "}
-              </p>
-              <p>3. YOU CAN CHOOSE ALGORITHM AND SPEED FROM SELECT BOX</p>
+              </div>
+              <div className="info__info">
+                3. YOU CAN CHOOSE ALGORITHM AND SPEED FROM SELECT BOX
+              </div>
             </div>
           </div>
         </Modal.Body>
