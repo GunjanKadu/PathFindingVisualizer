@@ -70,11 +70,11 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
       },
       () => {
         const { windowWidth, grid } = this.state;
-        if (windowWidth && windowWidth < 1550 && windowWidth > 1330) {
+        if (windowWidth && windowWidth <= 1550 && windowWidth >= 1330) {
           DefaultValues.setRoworColumn(30, "columns");
 
           DefaultValues.setStartOrEnd([6, 24], "end");
-        } else if (windowWidth && windowWidth < 1330) {
+        } else if (windowWidth && windowWidth <= 1330) {
           DefaultValues.setRoworColumn(25, "columns");
           DefaultValues.setStartOrEnd([6, 19], "end");
         } else {
@@ -374,6 +374,7 @@ export default class Visualizer extends Component<{}, IVisualizerState> {
             generateMaze={this.generateMaze}
           ></Header>
         </div>
+
         <div className="body">
           <div className="information">
             <h3>{this.state.algoText} Algorithm</h3>

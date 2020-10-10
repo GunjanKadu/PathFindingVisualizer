@@ -61,21 +61,6 @@ export default class Header extends Component<IHeaderProps, IHeaderState> {
             PATHFINDING VISUALIZER
           </Navbar.Brand>{" "}
           <div className="selectorMenu">
-            <Button
-              className="non-visualize-button"
-              onClick={this.props.changeWeights}
-              disabled={this.props.visualized}
-            >
-              New Weights
-            </Button>
-            <Button
-              className="non-visualize-button"
-              onClick={this.props.clearBoard}
-              disabled={this.props.visualized}
-              style={{ marginBottom: "6vh" }}
-            >
-              New Board
-            </Button>
             <select
               disabled={this.props.visualized}
               onChange={this.onSpeedChangeHandler}
@@ -112,6 +97,20 @@ export default class Header extends Component<IHeaderProps, IHeaderState> {
               disabled={this.props.visualized}
             >
               Visualize
+            </Button>
+            <Button
+              className="non-visualize-button"
+              onClick={this.props.changeWeights}
+              disabled={this.props.visualized}
+            >
+              New Weights
+            </Button>
+            <Button
+              className="non-visualize-button"
+              onClick={this.props.clearBoard}
+              disabled={this.props.visualized}
+            >
+              New Board
             </Button>
           </div>
           <div className="nav__footer">
